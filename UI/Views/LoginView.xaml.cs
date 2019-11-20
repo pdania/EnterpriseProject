@@ -10,19 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UI.Tools.Navigation;
+using UI.ViewModels;
 
 namespace UI.Views
 {
     /// <summary>
-    /// Логика взаимодействия для Window1.xaml
+    /// Логика взаимодействия для LoginView.xaml
     /// </summary>
-    public partial class LoginView : Window,INavigatable
+    public partial class LoginView : UserControl,INavigatable
     {
         public LoginView()
         {
             InitializeComponent();
+            DataContext = new LoginViewModel();
         }
     }
 }

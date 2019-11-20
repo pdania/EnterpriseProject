@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using UI.Tools.Navigation;
 using UI.ViewModels;
 
 namespace UI.Views
@@ -18,7 +19,7 @@ namespace UI.Views
     /// <summary>
     /// Логика взаимодействия для DashBoardView.xaml
     /// </summary>
-    public partial class DashBoardView : Window
+    public partial class DashBoardView : Window,INavigatable
     {
         public DashBoardView()
         {

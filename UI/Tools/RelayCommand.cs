@@ -3,76 +3,69 @@ using System.Windows.Input;
 
 namespace UI.Tools
 {
-    /// <summary>
-    /// A command whose sole purpose is to relay its functionality
-    /// to other objects by invoking delegates.
-    /// The default return value for the CanExecute method is 'true'.
-    /// RaiseCanExecuteChanged needs to be called whenever
-    /// CanExecute is expected to return a different value.
-    /// </summary>
-    public class RelayCommand : ICommand
+    public class RelayCommand<T> : ICommand
     {
-        private readonly Action _execute;
-        private readonly Func<bool> _canExecute;
+        #region Fields
+        readonly Action<T> _execute;
+        readonly Predicate<T> _canExecute;
+        #endregion
+
+        #region Constructors
         /// <summary>
-        /// Raised when RaiseCanExecuteChanged is called.
+        /// Initializes a new instance/>.
         /// </summary>
-        public event EventHandler CanExecuteChanged;
-        /// <summary>
-        /// Creates a new command that can always execute.
-        /// </summary>
-        /// <param name="execute">The execution logic.</param>
-        public RelayCommand(Action execute)
+        /// <param name="execute">Delegate to execute when Execute is called on the command.  This can be null to just hook up a CanExecute delegate.</param>
+        /// <remarks><seealso cref="CanExecute"/> will always return true.</remarks>
+        public RelayCommand(Action<T> execute)
             : this(execute, null)
         {
         }
+
         /// <summary>
         /// Creates a new command.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
-        public RelayCommand(Action execute, Func<bool> canExecute)
+        public RelayCommand(Action<T> execute, Predicate<T> canExecute)
         {
-            if (execute == null)
-                throw new ArgumentNullException("execute");
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
-        /// <summary>
-        /// Determines whether this RelayCommand can execute in its current state.
-        /// </summary>
-        /// <param name="parameter">
-        /// Data used by the command. If the command does not require data to be passed,
-        /// this object can be set to null.
-        /// </param>
-        /// <returns>true if this command can be executed; otherwise, false.</returns>
+
+        #endregion
+
+        #region ICommand Members
+
+        ///<summary>
+        ///Defines the method that determines whether the command can execute in its current state.
+        ///</summary>
+        ///<param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
+        ///<returns>
+        ///true if this command can be executed; otherwise, false.
+        ///</returns>
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute();
+            return _canExecute?.Invoke((T)parameter) ?? true;
         }
-        /// <summary>
-        /// Executes the RelayCommand on the current command target.
-        /// </summary>
-        /// <param name="parameter">
-        /// Data used by the command. If the command does not require data to be passed,
-        /// this object can be set to null.
-        /// </param>
+
+        ///<summary>
+        ///Occurs when changes occur that affect whether or not the command should execute.
+        ///</summary>
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
+        ///<summary>
+        ///Defines the method to be called when the command is invoked.
+        ///</summary>
+        ///<param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to <see langword="null" />.</param>
         public void Execute(object parameter)
         {
-            _execute();
+            _execute((T)parameter);
         }
-        /// <summary>
-        /// Method used to raise the CanExecuteChanged event
-        /// to indicate that the return value of the CanExecute
-        /// method has changed.
-        /// </summary>
-        public void RaiseCanExecuteChanged()
-        {
-            var handler = CanExecuteChanged;
-            if (handler != null)
-            {
-                handler(this, EventArgs.Empty);
-            }
-        }
+
+        #endregion
     }
 }
