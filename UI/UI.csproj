@@ -63,6 +63,7 @@
     </ApplicationDefinition>
     <Compile Include="Tools\BaseViewModel.cs" />
     <Compile Include="Tools\ILoaderOwner.cs" />
+    <Compile Include="Tools\IPasswordSupplier.cs" />
     <Compile Include="Tools\Managers\LoaderMeneger.cs" />
     <Compile Include="Tools\Managers\NavigationMeneger.cs" />
     <Compile Include="Tools\Navigation\BaseNavigationModel.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="Tools\StationManager.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\InformationViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
