@@ -10,12 +10,20 @@
         
         <StackPanel Margin="20">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Log out" Command="{Binding LoginCommand}" HorizontalAlignment="Right"/>
-                <Label Content="Main menu" HorizontalAlignment="Center" VerticalContentAlignment="Bottom"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
-                <Button Content="New Random" Width="140" Height="40" Command="{Binding RandomCommand}"/>
+                <Button Content="Log out" Width="140" Height="40" Command="{Binding LoginCommand}" HorizontalAlignment="Right"/>
+                <Label Content="Main menu"  Margin="120,0,0,0" HorizontalAlignment="Center" />
                 <Button Content="History" Width="140" Height="40" Margin="120,0,0,0" Command="{Binding HistoryCommand}"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Margin="0,40,0,0">
+                <StackPanel Orientation="Horizontal" >
+                    <TextBox  Width="140" Height="40" PreviewTextInput="NumberValidationTextBox"/>
+                    <TextBox  Width="140" Height="40" Margin="120,0,0,0" PreviewTextInput="NumberValidationTextBox"/>
+                </StackPanel>
+                    <Button Content="New Random" Width="140" Height="40" Command="{Binding RandomCommand}"/>
+                <StackPanel CanVerticallyScroll="True">
+                    <ListBox ItemsSource="{Binding RandomList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></ListBox>
+                </StackPanel>  
+               
             </StackPanel>
            
         </StackPanel>
