@@ -16,8 +16,8 @@
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" Margin="0,40,0,0">
                 <StackPanel Orientation="Horizontal" >
-                    <TextBox  Width="140" Height="40" />
-                    <TextBox  Width="140" Height="40" Margin="120,0,0,0" />
+                    <TextBox  Width="140" Height="40"/>
+                    <TextBox  Width="140" Height="40" Margin="120,0,0,0"/>
                 </StackPanel>
                     <Button Content="New Random" Width="140" Height="40" Command="{Binding RandomCommand}" Background="Chartreuse"/>
                 <StackPanel CanVerticallyScroll="True">

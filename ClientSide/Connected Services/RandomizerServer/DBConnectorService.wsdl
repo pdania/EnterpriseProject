@@ -4,6 +4,7 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:57196/DBConnectorService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:57196/DBConnectorService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:57196/DBConnectorService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DBModels" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IDBConnectorService_AddUser_InputMessage">
@@ -12,16 +13,35 @@
   <wsdl:message name="IDBConnectorService_AddUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddUserResponse" />
   </wsdl:message>
+  <wsdl:message name="IDBConnectorService_GetAllUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsers" />
+  </wsdl:message>
+  <wsdl:message name="IDBConnectorService_GetAllUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersResponse" />
+  </wsdl:message>
   <wsdl:portType name="IDBConnectorService">
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IDBConnectorService/AddUser" message="tns:IDBConnectorService_AddUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDBConnectorService/AddUserResponse" message="tns:IDBConnectorService_AddUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDBConnectorService/GetAllUsers" message="tns:IDBConnectorService_GetAllUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDBConnectorService/GetAllUsersResponse" message="tns:IDBConnectorService_GetAllUsers_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IDBConnectorService" type="tns:IDBConnectorService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="AddUser">
       <soap:operation soapAction="http://tempuri.org/IDBConnectorService/AddUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <soap:operation soapAction="http://tempuri.org/IDBConnectorService/GetAllUsers" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

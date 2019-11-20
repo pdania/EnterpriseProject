@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ClientSide
 {
-    public class Cipher
+    public static class Cipher
     {
         private static string _key;
 
@@ -15,7 +15,7 @@ namespace ClientSide
             set => _key = value;
         }
 
-        private string GenerateEncryptionKey()
+        private static string GenerateEncryptionKey()
         {
             string EncryptionKey = string.Empty;
 
@@ -26,7 +26,7 @@ namespace ClientSide
             return EncryptionKey;
         }
 
-        public string Encrypt(string clearText, string EncryptionKey)
+        public static string Encrypt(string clearText, string EncryptionKey)
         {
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
             using (Aes encryptor = Aes.Create())
@@ -45,11 +45,6 @@ namespace ClientSide
                 }
             }
             return clearText;
-        }
-
-        public Cipher()
-        {
-            Key = GenerateEncryptionKey();
         }
     }
 }

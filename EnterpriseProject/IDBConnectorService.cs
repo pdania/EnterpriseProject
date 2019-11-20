@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using DBModels;
 
 namespace EnterpriseProject
 {
@@ -12,6 +13,9 @@ namespace EnterpriseProject
     public interface IDBConnectorService
     {
         [OperationContract]
-        string AddUser(string user);
+        string AddUser(User user);
+
+        [OperationContract]
+        IEnumerable<User> GetAllUsers();
     }
 }
