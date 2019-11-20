@@ -67,8 +67,11 @@ namespace UI.ViewModels
 
         public RelayCommand CloseCommand
         {
-            get { return _closeCommand = new RelayCommand(); }
+            get
+            { return _closeCommand ??  (_closeCommand = new RelayCommand(SignIUImplementation, () => CanExecuteCommand())); }
         }
+
+       
 
         #endregion
 
@@ -95,6 +98,10 @@ namespace UI.ViewModels
         private async void SignInImplementation()
         {
            
+        }
+        private async void SignIUImplementation()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
