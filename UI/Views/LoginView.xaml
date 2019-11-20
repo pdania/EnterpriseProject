@@ -31,8 +31,8 @@
                         <PasswordBox Grid.Row="1" Grid.Column="1" Margin="0,5"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
 
                         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-                            <Button Content="Sign In"  Margin="2,10" Width="100" Height="30" Click="{Binding SignInCommand}" Background="#80ff00" />
-                            <Button Content="Sign Up"  Margin="2,10" Width="100" Click="{Binding SignUpCommand}" Background="CadetBlue"/>
+                            <Button Content="Sign In"  Margin="2,10" Width="100" Height="30" Command="{Binding SignInCommand}" Background="#80ff00" />
+                            <Button Content="Sign Up"  Margin="2,10" Width="100" Command="{Binding SignUpCommand}" Background="CadetBlue"/>
                         </StackPanel>
                     </Grid>
                 </StackPanel>
