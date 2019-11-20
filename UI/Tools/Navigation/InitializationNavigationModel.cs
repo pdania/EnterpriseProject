@@ -17,7 +17,13 @@ namespace UI.Tools.Navigation
                 case ViewType.Login:
                     ViewsDictionary.Add(viewType,new LoginView());
                     break;
-                
+                case ViewType.Registration:
+                    ViewsDictionary.Add(viewType, new RegistrationView());
+                    break;
+                case ViewType.Dashboard:
+                    ViewsDictionary.Add(viewType, new DashBoardView());
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(viewType), viewType, null);
             }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UI.Tools;
 using UI.Tools.Managers;
 using UI.Tools.Navigation;
@@ -17,8 +18,8 @@ namespace UI.ViewModels
 
         #region Commands
 
-        private RelayCommand _googleCommand;
-        private RelayCommand _closeCommand;
+        private RelayCommand<object> _loginCommand;
+        private RelayCommand<object> _closeCommand;
 
         #endregion
 
@@ -30,7 +31,6 @@ namespace UI.ViewModels
             set
             {
                 _cardNumber = value;
-                _googleCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -47,35 +47,28 @@ namespace UI.ViewModels
             set
             {
                 _password = value;
-                _googleCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
-
-        public int Tries { get; set; }
-
+        #endregion
         #region Commands
 
-        public RelayCommand GoogleCommand
+        public RelayCommand<object> LoginCommand
         {
             get
             {
-                return _googleCommand ??
-                       (_googleCommand = new RelayCommand(SignInImplementation, () => CanExecuteCommand()));
+                return _loginCommand ?? (_loginCommand = new RelayCommand<object>(
+                           LoginImplementation, o => CanExecuteCommand()));
             }
         }
 
-        public RelayCommand CloseCommand
+        public RelayCommand<object> CloseCommand
         {
-            get
-            { return _closeCommand ??  (_closeCommand = new RelayCommand(SignIUImplementation, () => CanExecuteCommand())); }
+            get { return _closeCommand ?? (_closeCommand = new RelayCommand<object>(o => Environment.Exit(0))); }
         }
 
-       
-
         #endregion
 
-        #endregion
 
         private bool CanExecuteCommand()
         {
@@ -95,13 +88,9 @@ namespace UI.ViewModels
         }
 
         
-        private async void SignInImplementation()
+        private async void LoginImplementation(object obj)
         {
            
-        }
-        private async void SignIUImplementation()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

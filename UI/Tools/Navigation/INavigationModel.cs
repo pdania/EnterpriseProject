@@ -3,8 +3,8 @@
     internal enum ViewType
     {
         Login,
-        SignUp,
-        Main
+        Registration,
+        Dashboard
     }
 
     interface INavigationModel
