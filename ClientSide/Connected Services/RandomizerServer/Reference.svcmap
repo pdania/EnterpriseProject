@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="80473503-c520-4835-b848-79a4a44501d0" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="9ff9bffe-c0d7-4027-9e07-eb01180a819f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,10 +22,11 @@
     <MetadataSource Address="http://localhost:57196/DBConnectorService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="DBConnectorService.xsd" MetadataType="Schema" ID="ef202ebe-dd8d-4987-80f0-2402ceeb7f90" SourceId="1" SourceUrl="http://localhost:57196/DBConnectorService.svc?xsd=xsd0" />
-    <MetadataFile FileName="DBConnectorService.disco" MetadataType="Disco" ID="47a8f847-9cf8-4474-a30a-a21c12832aa9" SourceId="1" SourceUrl="http://localhost:57196/DBConnectorService.svc?disco" />
-    <MetadataFile FileName="DBConnectorService1.xsd" MetadataType="Schema" ID="76f77a3e-9601-4f53-a0fa-50572c74c26b" SourceId="1" SourceUrl="http://localhost:57196/DBConnectorService.svc?xsd=xsd1" />
-    <MetadataFile FileName="DBConnectorService.wsdl" MetadataType="Wsdl" ID="516f2d91-3dc6-4970-aeeb-e971c44db0a6" SourceId="1" SourceUrl="http://localhost:57196/DBConnectorService.svc?wsdl" />
+    <MetadataFile FileName="DBConnectorService.xsd" MetadataType="Schema" ID="756b40ec-5696-4af1-be40-eef6a1bebcc7" SourceId="1" SourceUrl="http://localhost:57196/DBConnectorService.svc?xsd=xsd0" />
+    <MetadataFile FileName="DBConnectorService.disco" MetadataType="Disco" ID="0de4e632-2bde-47f3-ab24-4942abd5c345" SourceId="1" SourceUrl="http://localhost:57196/DBConnectorService.svc?disco" />
+    <MetadataFile FileName="DBConnectorService1.xsd" MetadataType="Schema" ID="8c8cba2a-fdd8-4b25-b8ab-8a95ade2bdca" SourceId="1" SourceUrl="http://localhost:57196/DBConnectorService.svc?xsd=xsd2" />
+    <MetadataFile FileName="DBConnectorService2.xsd" MetadataType="Schema" ID="153a7f46-4203-443d-a80d-20578172c845" SourceId="1" SourceUrl="http://localhost:57196/DBConnectorService.svc?xsd=xsd1" />
+    <MetadataFile FileName="DBConnectorService.wsdl" MetadataType="Wsdl" ID="474b0ae8-9501-4e13-b372-da57768adc98" SourceId="1" SourceUrl="http://localhost:57196/DBConnectorService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

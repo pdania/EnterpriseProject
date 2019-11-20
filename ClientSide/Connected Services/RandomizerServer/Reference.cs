@@ -8,27 +8,33 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClientSide.DBConnectorService {
+namespace ClientSide.RandomizerServer {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="DBConnectorService.IDBConnectorService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="RandomizerServer.IDBConnectorService")]
     public interface IDBConnectorService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBConnectorService/AddUser", ReplyAction="http://tempuri.org/IDBConnectorService/AddUserResponse")]
-        string AddUser(string user);
+        string AddUser(DBModels.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBConnectorService/AddUser", ReplyAction="http://tempuri.org/IDBConnectorService/AddUserResponse")]
-        System.Threading.Tasks.Task<string> AddUserAsync(string user);
+        System.Threading.Tasks.Task<string> AddUserAsync(DBModels.User user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBConnectorService/GetAllUsers", ReplyAction="http://tempuri.org/IDBConnectorService/GetAllUsersResponse")]
+        DBModels.User[] GetAllUsers();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBConnectorService/GetAllUsers", ReplyAction="http://tempuri.org/IDBConnectorService/GetAllUsersResponse")]
+        System.Threading.Tasks.Task<DBModels.User[]> GetAllUsersAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IDBConnectorServiceChannel : ClientSide.DBConnectorService.IDBConnectorService, System.ServiceModel.IClientChannel {
+    public interface IDBConnectorServiceChannel : ClientSide.RandomizerServer.IDBConnectorService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class DBConnectorServiceClient : System.ServiceModel.ClientBase<ClientSide.DBConnectorService.IDBConnectorService>, ClientSide.DBConnectorService.IDBConnectorService {
+    public partial class DBConnectorServiceClient : System.ServiceModel.ClientBase<ClientSide.RandomizerServer.IDBConnectorService>, ClientSide.RandomizerServer.IDBConnectorService {
         
         public DBConnectorServiceClient() {
         }
@@ -49,12 +55,20 @@ namespace ClientSide.DBConnectorService {
                 base(binding, remoteAddress) {
         }
         
-        public string AddUser(string user) {
+        public string AddUser(DBModels.User user) {
             return base.Channel.AddUser(user);
         }
         
-        public System.Threading.Tasks.Task<string> AddUserAsync(string user) {
+        public System.Threading.Tasks.Task<string> AddUserAsync(DBModels.User user) {
             return base.Channel.AddUserAsync(user);
+        }
+        
+        public DBModels.User[] GetAllUsers() {
+            return base.Channel.GetAllUsers();
+        }
+        
+        public System.Threading.Tasks.Task<DBModels.User[]> GetAllUsersAsync() {
+            return base.Channel.GetAllUsersAsync();
         }
     }
 }
