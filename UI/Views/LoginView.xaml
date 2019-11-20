@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             xmlns:tools="clr-namespace:UI.Tools"
              d:DesignHeight="300" d:DesignWidth="400">
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="20">
 
@@ -21,13 +22,13 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="Login : " VerticalContentAlignment="Center"
+                <Label Grid.Row="0" Grid.Column="0" Content="Email : " VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Right"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Login,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150" VerticalContentAlignment="Center"
-                                 HorizontalContentAlignment="Left"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Email,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150" VerticalContentAlignment="Center"
+                                 HorizontalContentAlignment="Left" />
 
                 <Label Grid.Row="1" Grid.Column="0"  Content="Password : " VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-                <PasswordBox Grid.Row="1" Grid.Column="1" Margin="0,5" Width="150"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                <PasswordBox Name ="PwdBox" Grid.Row="1" Grid.Column="1" Margin="0,5" Width="150"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" tools:PasswordBoxAssistant.BindPassword="True" tools:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,20,0,0">
                     <Button Content="Sign In"  Margin="2,10" Width="100" Height="30" Command="{Binding SignInCommand}" Background="#80ff00" />
@@ -37,4 +38,5 @@
             <Button Content="Exit"  Margin="2,10" Width="100" Command="{Binding CloseCommand}" Height="30" Background="OrangeRed"/>
         </StackPanel>
     </Grid>
+
 </UserControl>

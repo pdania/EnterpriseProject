@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
 using ClientSide.RandomizerServer;
@@ -10,14 +11,24 @@ namespace ClientSide
     {
         public static void AddUser(User user)
         {
-            RandomizerServer.DBConnectorServiceClient client = new DBConnectorServiceClient();
+            RandomizerServer.RandomizerServiceClient client = new RandomizerServiceClient();
             client.AddUser(user);
+            client.Close();
         }
 
         public static IEnumerable<User> GetAllUsers()
         {
-            RandomizerServer.DBConnectorServiceClient client = new DBConnectorServiceClient();
-            return client.GetAllUsers();
+            RandomizerServer.RandomizerServiceClient client = new RandomizerServiceClient();
+            var users = client.GetAllUsers();
+            client.Close();
+            return users;
+        }
+
+        public static void AddRequest(Guid userGuid, Request request)
+        {
+            RandomizerServer.RandomizerServiceClient client = new RandomizerServiceClient();
+            client.AddRequest(userGuid, request);
+            client.Close();
         }
     }
 }

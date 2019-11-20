@@ -98,14 +98,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\RandomizerServer\DBConnectorService.wsdl" />
-    <None Include="Connected Services\RandomizerServer\DBConnectorService.xsd">
+    <None Include="Connected Services\RandomizerServer\RandomizerService.wsdl" />
+    <None Include="Connected Services\RandomizerServer\RandomizerService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\RandomizerServer\DBConnectorService1.xsd">
+    <None Include="Connected Services\RandomizerServer\RandomizerService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\RandomizerServer\DBConnectorService2.xsd">
+    <None Include="Connected Services\RandomizerServer\RandomizerService2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -131,7 +131,7 @@
     <WCFMetadataStorage Include="Connected Services\RandomizerServer\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\RandomizerServer\DBConnectorService.disco" />
+    <None Include="Connected Services\RandomizerServer\RandomizerService.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\RandomizerServer\configuration91.svcinfo" />
