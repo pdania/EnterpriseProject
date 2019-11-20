@@ -21,7 +21,7 @@ namespace UI.Tools.Navigation
                     ViewsDictionary.Add(viewType, new RegistrationView());
                     break;
                 case ViewType.Dashboard:
-                    ViewsDictionary.Add(viewType, new DashBoardView());
+                    ViewsDictionary.Add(viewType, new DashboardView());
                     break;
 
                 default:

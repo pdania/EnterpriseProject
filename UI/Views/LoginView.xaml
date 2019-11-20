@@ -31,10 +31,10 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,20,0,0">
                     <Button Content="Sign In"  Margin="2,10" Width="100" Height="30" Command="{Binding SignInCommand}" Background="#80ff00" />
-                    <Button Content="Sign Up"  Margin="2,10" Width="100" Command="{Binding SignUpCommand}" Background="CadetBlue"/>
+                    <Button Content="Sign Up"  Margin="2,10" Width="100" Height="30" Command="{Binding SignUpCommand}" Background="CadetBlue"/>
                 </StackPanel>
             </Grid>
-            <Button Content="Exit"  Margin="2,10" Width="100" Command="{Binding SignUpCommand}" Background="OrangeRed"/>
+            <Button Content="Exit"  Margin="2,10" Width="100" Command="{Binding CloseCommand}" Height="30" Background="OrangeRed"/>
         </StackPanel>
     </Grid>
 </UserControl>
