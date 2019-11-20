@@ -4,7 +4,8 @@
     {
         Login,
         Registration,
-        Dashboard
+        Dashboard,
+        Information
     }
 
     interface INavigationModel

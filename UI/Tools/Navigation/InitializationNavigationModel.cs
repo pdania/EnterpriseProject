@@ -23,6 +23,9 @@ namespace UI.Tools.Navigation
                 case ViewType.Dashboard:
                     ViewsDictionary.Add(viewType, new DashboardView());
                     break;
+                case ViewType.Information:
+                    ViewsDictionary.Add(viewType, new InformationView());
+                    break;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(viewType), viewType, null);

@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Documents;
 using UI.Tools;
 using UI.Tools.Managers;
 using UI.Tools.Navigation;
@@ -15,6 +17,8 @@ namespace UI.ViewModels
         private string _startRange;
         private string _endRange;
         private List<int> _result;
+        private RelayCommand<object> _loginCommand;
+        private RelayCommand<object> _historyCommand;
 
         public string StartRange
         {
@@ -40,7 +44,7 @@ namespace UI.ViewModels
             get
             {
                 return _generateCommand ?? (_generateCommand = new RelayCommand<object>(
-                           GenerateImplementation, o => CanExecuteCommand()));
+                         GenerateImplementation, o => CanExecuteCommand()));
             }
         }
 
@@ -50,7 +54,21 @@ namespace UI.ViewModels
         {
             get
             {
-                return _exitCommand ?? (_exitCommand = new RelayCommand<object>(o => NavigationManager.Instance.Navigate(ViewType.Login)));
+                return _exitCommand ?? (_exitCommand = new RelayCommand<object>(o => Environment.Exit(0)));
+            }
+        }
+        public RelayCommand<object> LoginCommand
+        {
+            get
+            {
+                return _loginCommand ?? (_loginCommand = new RelayCommand<object>(o => NavigationManager.Instance.Navigate(ViewType.Login)));
+            }
+        }
+        public RelayCommand<object> HistoryCommand
+        {
+            get
+            {
+                return _historyCommand ?? (_historyCommand = new RelayCommand<object>(o => NavigationManager.Instance.Navigate(ViewType.Information)));
             }
         }
 
@@ -76,29 +94,29 @@ namespace UI.ViewModels
             int start = Convert.ToInt32(StartRange);
             int end = Convert.ToInt32(EndRange);
             var l = Enumerable.Range(start,end-start+1 );
-            var res = RandomShuffle(l);
-//            string answer = "";
-//            foreach (var num in res)
-//            {
-//                answer += num + " ";
-//            }
-            Result = (List<int>) res;
+           
+            Result =  (List<int>)  RandomShuffle(l);
             
         }
 
-       
 
-        public static IList<T> RandomShuffle<T>(IEnumerable<T> list)
+
+        public IList<T> RandomShuffle<T>(IEnumerable<T> list)
         {
-            var random = new Random();
-            var shuffle = new List<T>(list);
-            for (var i = 2; i < shuffle.Count; ++i)
-            {
-                var temp = shuffle[i];
-                var nextRandom = random.Next(i - 1);
-                shuffle[i] = shuffle[nextRandom];
-                shuffle[nextRandom] = temp;
-            }
+            
+          
+                var random = new Random();
+                var shuffle = new List<T>(list);
+                for (var i = 2; i < shuffle.Count; ++i)
+                {
+                    var temp = shuffle[i];
+                    var nextRandom = random.Next(i - 1);
+                    shuffle[i] = shuffle[nextRandom];
+                    shuffle[nextRandom] = temp;
+                }
+
+                
+      
             return shuffle;
         }
     }
