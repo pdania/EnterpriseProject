@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
 using UI.Tools;
 using UI.Tools.Managers;
 using UI.Tools.Navigation;
@@ -10,7 +11,7 @@ namespace UI.ViewModels
     {
         #region Fields
 
-        private string _cardNumber;
+        private string _login;
         private string _password;
         private string _information;
 
@@ -19,18 +20,19 @@ namespace UI.ViewModels
         #region Commands
 
         private RelayCommand<object> _loginCommand;
+        private RelayCommand<object> _registrCommand;
         private RelayCommand<object> _closeCommand;
 
         #endregion
 
         #region Properties
 
-        public string CardNumber
+        public string Login
         {
-            get { return _cardNumber; }
+            get { return _login; }
             set
             {
-                _cardNumber = value;
+                _login = value;
                 OnPropertyChanged();
             }
         }
@@ -53,12 +55,20 @@ namespace UI.ViewModels
         #endregion
         #region Commands
 
-        public RelayCommand<object> LoginCommand
+        public RelayCommand<object> SignInCommand
         {
             get
             {
                 return _loginCommand ?? (_loginCommand = new RelayCommand<object>(
                            LoginImplementation, o => CanExecuteCommand()));
+            }
+        }
+
+        public RelayCommand<object> SignUpCommand
+        {
+            get
+            {
+                return _registrCommand ?? (_registrCommand = new RelayCommand<object>(o => NavigationManager.Instance.Navigate(ViewType.Registration)));
             }
         }
 
@@ -72,15 +82,13 @@ namespace UI.ViewModels
 
         private bool CanExecuteCommand()
         {
-            if (string.IsNullOrWhiteSpace(CardNumber) || string.IsNullOrWhiteSpace(Password)) return false;
-            return CanExecuteCardNumber() && CanExecutePin();
+            return true;
+            if (string.IsNullOrWhiteSpace(Password)) return false;
+            return  CanExecutePin();
             ;
         }
 
-        private bool CanExecuteCardNumber()
-        {
-            return CardNumber.All(char.IsDigit) && CardNumber.Length == 16;
-        }
+        
 
         private bool CanExecutePin()
         {
@@ -90,7 +98,7 @@ namespace UI.ViewModels
         
         private async void LoginImplementation(object obj)
         {
-           
+            NavigationManager.Instance.Navigate(ViewType.Dashboard);
         }
     }
 }

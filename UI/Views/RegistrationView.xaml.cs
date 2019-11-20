@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UI.Tools.Navigation;
+using UI.ViewModels;
 
 namespace UI.Views
 {
@@ -24,7 +25,7 @@ namespace UI.Views
         public RegistrationView()
         {
             InitializeComponent();
-            DataContext =  new RegistrationView();
+            DataContext =  new RegistrationViewModel();
         }
     }
 }

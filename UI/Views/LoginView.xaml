@@ -27,7 +27,7 @@
                                  HorizontalContentAlignment="Left"/>
 
                 <Label Grid.Row="1" Grid.Column="0"  Content="Password : " VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-                <PasswordBox Grid.Row="1" Grid.Column="1" Margin="0,5" Width="150"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                <PasswordBox Grid.Row="1" Grid.Column="1" Margin="0,5" Width="150" Name="pwdBox" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,20,0,0">
                     <Button Content="Sign In"  Margin="2,10" Width="100" Height="30" Command="{Binding SignInCommand}" Background="#80ff00" />
