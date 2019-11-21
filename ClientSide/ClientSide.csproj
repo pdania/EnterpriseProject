@@ -60,7 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Connected Services\RandomizerServer\Reference.cs">
+    <Compile Include="Connected Services\RandomizerService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -98,14 +98,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\RandomizerServer\RandomizerService.wsdl" />
-    <None Include="Connected Services\RandomizerServer\RandomizerService.xsd">
+    <None Include="Connected Services\RandomizerService\RandomizerService.wsdl" />
+    <None Include="Connected Services\RandomizerService\RandomizerService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\RandomizerServer\RandomizerService1.xsd">
+    <None Include="Connected Services\RandomizerService\RandomizerService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\RandomizerServer\RandomizerService2.xsd">
+    <None Include="Connected Services\RandomizerService\RandomizerService2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -128,19 +128,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\RandomizerServer\" />
+    <WCFMetadataStorage Include="Connected Services\RandomizerService\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\RandomizerServer\RandomizerService.disco" />
+    <None Include="Connected Services\RandomizerService\RandomizerService.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\RandomizerServer\configuration91.svcinfo" />
+    <None Include="Connected Services\RandomizerService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\RandomizerServer\configuration.svcinfo" />
+    <None Include="Connected Services\RandomizerService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\RandomizerServer\Reference.svcmap">
+    <None Include="Connected Services\RandomizerService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

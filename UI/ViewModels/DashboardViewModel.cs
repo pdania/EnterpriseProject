@@ -93,15 +93,15 @@ namespace UI.ViewModels
         {
             int start = Convert.ToInt32(StartRange);
             int end = Convert.ToInt32(EndRange);
-            var l = Enumerable.Range(start,end-start+1 );
+            var l = Enumerable.Range(start,end-start);
            
-            Result =  (List<int>)  RandomShuffle(l);
+            Result =  RandomShuffle(l);
             
         }
 
 
 
-        public IList<T> RandomShuffle<T>(IEnumerable<T> list)
+        private List<T> RandomShuffle<T>(IEnumerable<T> list)
         {
             
           
