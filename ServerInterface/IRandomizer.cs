@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using DBModels;
 
@@ -12,5 +13,8 @@ namespace ServerInterface
 
         [OperationContract]
         void AddUser(User user);
+
+        [OperationContract]
+        void AddRequest(Guid guid, Request request);
     }
 }

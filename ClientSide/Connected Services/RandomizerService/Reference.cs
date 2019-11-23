@@ -16,10 +16,10 @@ namespace ClientSide.RandomizerService {
     public interface IRandomizerService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRandomizerService/AddUser", ReplyAction="http://tempuri.org/IRandomizerService/AddUserResponse")]
-        string AddUser(DBModels.User user);
+        void AddUser(DBModels.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRandomizerService/AddUser", ReplyAction="http://tempuri.org/IRandomizerService/AddUserResponse")]
-        System.Threading.Tasks.Task<string> AddUserAsync(DBModels.User user);
+        System.Threading.Tasks.Task AddUserAsync(DBModels.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRandomizerService/GetAllUsers", ReplyAction="http://tempuri.org/IRandomizerService/GetAllUsersResponse")]
         DBModels.User[] GetAllUsers();
@@ -28,10 +28,10 @@ namespace ClientSide.RandomizerService {
         System.Threading.Tasks.Task<DBModels.User[]> GetAllUsersAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRandomizerService/AddRequest", ReplyAction="http://tempuri.org/IRandomizerService/AddRequestResponse")]
-        string AddRequest(System.Guid userGuid, DBModels.Request request);
+        void AddRequest(System.Guid userGuid, DBModels.Request request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRandomizerService/AddRequest", ReplyAction="http://tempuri.org/IRandomizerService/AddRequestResponse")]
-        System.Threading.Tasks.Task<string> AddRequestAsync(System.Guid userGuid, DBModels.Request request);
+        System.Threading.Tasks.Task AddRequestAsync(System.Guid userGuid, DBModels.Request request);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -61,11 +61,11 @@ namespace ClientSide.RandomizerService {
                 base(binding, remoteAddress) {
         }
         
-        public string AddUser(DBModels.User user) {
-            return base.Channel.AddUser(user);
+        public void AddUser(DBModels.User user) {
+            base.Channel.AddUser(user);
         }
         
-        public System.Threading.Tasks.Task<string> AddUserAsync(DBModels.User user) {
+        public System.Threading.Tasks.Task AddUserAsync(DBModels.User user) {
             return base.Channel.AddUserAsync(user);
         }
         
@@ -77,11 +77,11 @@ namespace ClientSide.RandomizerService {
             return base.Channel.GetAllUsersAsync();
         }
         
-        public string AddRequest(System.Guid userGuid, DBModels.Request request) {
-            return base.Channel.AddRequest(userGuid, request);
+        public void AddRequest(System.Guid userGuid, DBModels.Request request) {
+            base.Channel.AddRequest(userGuid, request);
         }
         
-        public System.Threading.Tasks.Task<string> AddRequestAsync(System.Guid userGuid, DBModels.Request request) {
+        public System.Threading.Tasks.Task AddRequestAsync(System.Guid userGuid, DBModels.Request request) {
             return base.Channel.AddRequestAsync(userGuid, request);
         }
     }

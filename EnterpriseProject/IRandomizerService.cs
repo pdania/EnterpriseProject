@@ -10,12 +10,12 @@ namespace EnterpriseProject
     public interface IRandomizerService
     {
         [OperationContract]
-        string AddUser(User user);
+        void AddUser(User user);
 
         [OperationContract]
         IEnumerable<User> GetAllUsers();
 
         [OperationContract]
-        string AddRequest(Guid userGuid, Request request);
+        void AddRequest(Guid userGuid, Request request);
     }
 }

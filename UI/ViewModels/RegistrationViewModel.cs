@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Mail;
+using System.Threading.Tasks;
+using System.Windows;
+using ClientSide;
+using DBModels;
 using UI.Tools;
 using UI.Tools.Managers;
 using UI.Tools.Navigation;
@@ -42,7 +47,10 @@ namespace UI.ViewModels
             get { return _password; }
             set
             {
-                _password = value;
+                if (value.Length != 0)
+                    _password = null;
+                else
+                    _password = Cipher.Encrypt(value);
                 OnPropertyChanged();
             }
         }
@@ -51,7 +59,10 @@ namespace UI.ViewModels
             get { return _confrimPassword; }
             set
             {
-                _confrimPassword = value;
+                if (value.Length != 0)
+                    _confrimPassword = null;
+                else
+                    _confrimPassword = Cipher.Encrypt(value);
                 OnPropertyChanged();
             }
         }
@@ -82,9 +93,31 @@ namespace UI.ViewModels
             }
         }
 
-        private void SignUpImplementation(object obj)
+        private async void SignUpImplementation(object obj)
         {
-            throw new System.NotImplementedException();
+            LoaderManeger.Instance.ShowLoader();
+            var result = await Task.Run(() =>
+            {
+                var users = RestApi.GetAllUsers();
+                var user = (from userIterator in users
+                    where userIterator.Email == Email
+                    select userIterator).First();
+                if (user != null)
+                {
+                    MessageBox.Show(
+                        $"Sign up failed fo user {Email}. Reason:{Environment.NewLine}User with such email already exists");
+                    return false;
+                }
+                RestApi.AddUser(new User());
+                StationManager.CurrentUser = user;
+                MessageBox.Show($"Sign In successfull fo user {Email}.");
+                return true;
+            });
+            LoaderManeger.Instance.HideLoader();
+            if (result)
+            {
+                NavigationManager.Instance.Navigate(ViewType.Login);
+            }
         }
 
         public RelayCommand<object> CancelCommand

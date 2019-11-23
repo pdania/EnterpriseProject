@@ -45,6 +45,9 @@ namespace UI.ViewModels
             get { return _password; }
             set
             {
+                if (value.Length != 0)
+                    _password = null;
+                else
                 _password = Cipher.Encrypt(value);
                 OnPropertyChanged();
             }
@@ -105,6 +108,7 @@ namespace UI.ViewModels
                 MessageBox.Show($"Sign In successfull fo user {Email}.");
                 return true;
             });
+            LoaderManeger.Instance.HideLoader();
             if (result)
             {
                 NavigationManager.Instance.Navigate(ViewType.Dashboard);

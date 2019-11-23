@@ -9,11 +9,10 @@ namespace EnterpriseProject
     // ПРИМЕЧАНИЕ. Чтобы запустить клиент проверки WCF для тестирования службы, выберите элементы RandomizerService.svc или RandomizerService.svc.cs в обозревателе решений и начните отладку.
     public class RandomizerService : IRandomizerService
     {
-        public string AddUser(User user)
+        public void AddUser(User user)
         {
             DBConnection dbConnection = new DBConnection();
             dbConnection.AddUser(user);
-            return "success";
         }
 
         public IEnumerable<User> GetAllUsers()
@@ -22,11 +21,10 @@ namespace EnterpriseProject
             return dbConnection.GetAllUsers();
         }
 
-        public string AddRequest(Guid userGuid, Request request)
+        public void AddRequest(Guid userGuid, Request request)
         {
             DBConnection dbConnection = new DBConnection();
             dbConnection.AddRequest(userGuid, request);
-            return "success";
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ServiceModel;
 using ClientSide.RandomizerService;
 using DBModels;
 
@@ -7,22 +8,20 @@ namespace ClientSide
 {
     public static class RestApi
     {
+        private static readonly EndpointAddress RemoteAddress = new System.ServiceModel.EndpointAddress("http://localhost:57196/RandomizerService.svc");
         public static void AddUser(User user)
         {
-            RandomizerService.RandomizerServiceClient client = new RandomizerServiceClient();
-            client.AddUser(user);
-            client.Close();
+            using (var randomizerService = new RandomizerServiceClient(new System.ServiceModel.BasicHttpBinding(), RemoteAddress))
+            {
+                randomizerService.AddUser(user);
+                randomizerService.Close();
+
+            }
         }
 
         public static IEnumerable<User> GetAllUsers()
         {
-//            RandomizerService.RandomizerServiceClient client = new RandomizerServiceClient();
-//            var users = client.GetAllUsers();
-//            client.Close();
-//            return users;
-            var remoteAddress = new System.ServiceModel.EndpointAddress("http://localhost:57196/RandomizerService.svc");
-
-            using (var randomizerService = new RandomizerServiceClient(new System.ServiceModel.BasicHttpBinding(), remoteAddress))
+            using (var randomizerService = new RandomizerServiceClient(new System.ServiceModel.BasicHttpBinding(), RemoteAddress))
             {
 
 
@@ -36,9 +35,12 @@ namespace ClientSide
 
         public static void AddRequest(Guid userGuid, Request request)
         {
-            RandomizerService.RandomizerServiceClient client = new RandomizerServiceClient();
-            client.AddRequest(userGuid, request);
-            client.Close();
+            using (var randomizerService =
+                new RandomizerServiceClient(new System.ServiceModel.BasicHttpBinding(), RemoteAddress))
+            {
+                randomizerService.AddRequest(userGuid, request);
+                randomizerService.Close();
+            }
         }
     }
 }

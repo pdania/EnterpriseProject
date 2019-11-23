@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using System.Windows.Navigation;
 using UI.Tools;
 using UI.Tools.Managers;
 using UI.Tools.Navigation;
@@ -94,9 +95,10 @@ namespace UI.ViewModels
             int start = Convert.ToInt32(StartRange);
             int end = Convert.ToInt32(EndRange);
             var l = Enumerable.Range(start,end-start+1);
-            await Task.Run(() =>
-                Result = RandomShuffle(l)
-            );
+            LoaderManeger.Instance.ShowLoader();
+            var res = await Task.Run(() => RandomShuffle(l));
+            LoaderManeger.Instance.HideLoader();
+            Result = res;
         }
 
 
