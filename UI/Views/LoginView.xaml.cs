@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ClientSide;
 using UI.Tools;
 using UI.Tools.Navigation;
 using UI.ViewModels;
@@ -21,17 +22,12 @@ namespace UI.Views
     /// <summary>
     /// Логика взаимодействия для LoginView.xaml
     /// </summary>
-    public partial class LoginView : UserControl,INavigatable, IPasswordSupplier
+    public partial class LoginView : UserControl,INavigatable
     {
         public LoginView()
         {
             InitializeComponent();
             DataContext = new LoginViewModel();
-        }
-
-        public string GetPassword()
-        {
-            return pwdBox.Password;
         }
     }
 }

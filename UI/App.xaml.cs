@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using UI.Tools;
-using UI.ViewModels;
+﻿using System.Windows;
 
 namespace UI
 {
@@ -16,5 +8,4 @@ namespace UI
     public partial class App : Application
     {
     }
-   
 }

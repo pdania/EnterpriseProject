@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using UI.Tools;
@@ -90,21 +89,19 @@ namespace UI.ViewModels
             }
         }
 
-        private async void GenerateImplementation(object obj)
+        private void GenerateImplementation(object obj)
         {
-            
             int start = Convert.ToInt32(StartRange);
             int end = Convert.ToInt32(EndRange);
-            var l = Enumerable.Range(start,end-start+1 );
-           await Task.Run(()=>
-            Result = (List<int>)  RandomShuffle(l)
-          );
-
+            var l = Enumerable.Range(start,end-start);
+           
+            Result =  RandomShuffle(l);
+            
         }
 
 
 
-        public IList<T> RandomShuffle<T>(IEnumerable<T> list)
+        private List<T> RandomShuffle<T>(IEnumerable<T> list)
         {
             
           

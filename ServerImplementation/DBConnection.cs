@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Security;
@@ -24,6 +25,14 @@ namespace ServerImplementation
             {
                 context.Users.Add(user);
                 context.SaveChanges();
+            }
+        }
+
+        public void AddRequest(Guid userGuid, Request request)
+        {
+            using (var context = new RandomizerDBContext())
+            {
+               context.Users.FirstOrDefault(user1 => user1.Guid == userGuid)?.Requests.Add(request);
             }
         }
     }

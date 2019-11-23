@@ -39,7 +39,10 @@
       <HintPath>..\packages\FontAwesome.WPF.4.5.0.8\lib\net40\FontAwesome.WPF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Globalization" />
+    <Reference Include="System.Runtime" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -60,7 +63,6 @@
     </ApplicationDefinition>
     <Compile Include="Tools\BaseViewModel.cs" />
     <Compile Include="Tools\ILoaderOwner.cs" />
-    <Compile Include="Tools\IPasswordSupplier.cs" />
     <Compile Include="Tools\Managers\LoaderMeneger.cs" />
     <Compile Include="Tools\Managers\NavigationMeneger.cs" />
     <Compile Include="Tools\Navigation\BaseNavigationModel.cs" />
@@ -145,6 +147,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClientSide\ClientSide.csproj">
+      <Project>{94651F4C-CA7E-4EB2-8978-0AF7CE61371E}</Project>
+      <Name>ClientSide</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DBModels\DBModels.csproj">
       <Project>{D4538F32-5B06-4CE0-BB10-E14422A243AA}</Project>
       <Name>DBModels</Name>

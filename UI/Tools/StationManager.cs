@@ -2,8 +2,8 @@
 
 namespace UI.Tools
 {
-    public class StationManager
+    public static class StationManager
     {
-        public User CurrentUser { get; set; }
+        public static User CurrentUser { get; set; }
     }
 }
