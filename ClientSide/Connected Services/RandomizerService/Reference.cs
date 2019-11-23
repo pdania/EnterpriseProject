@@ -32,6 +32,12 @@ namespace ClientSide.RandomizerService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRandomizerService/AddRequest", ReplyAction="http://tempuri.org/IRandomizerService/AddRequestResponse")]
         System.Threading.Tasks.Task AddRequestAsync(System.Guid userGuid, DBModels.Request request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRandomizerService/GetAllRequests", ReplyAction="http://tempuri.org/IRandomizerService/GetAllRequestsResponse")]
+        DBModels.Request[] GetAllRequests(System.Guid userGuid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRandomizerService/GetAllRequests", ReplyAction="http://tempuri.org/IRandomizerService/GetAllRequestsResponse")]
+        System.Threading.Tasks.Task<DBModels.Request[]> GetAllRequestsAsync(System.Guid userGuid);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -83,6 +89,14 @@ namespace ClientSide.RandomizerService {
         
         public System.Threading.Tasks.Task AddRequestAsync(System.Guid userGuid, DBModels.Request request) {
             return base.Channel.AddRequestAsync(userGuid, request);
+        }
+        
+        public DBModels.Request[] GetAllRequests(System.Guid userGuid) {
+            return base.Channel.GetAllRequests(userGuid);
+        }
+        
+        public System.Threading.Tasks.Task<DBModels.Request[]> GetAllRequestsAsync(System.Guid userGuid) {
+            return base.Channel.GetAllRequestsAsync(userGuid);
         }
     }
 }

@@ -12,19 +12,19 @@
             <RowDefinition Height="10*"/>
             
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" >
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Button Content="Back" Width="150" Height="30" Command="{Binding BackCommand}"></Button>
-            <TextBlock Text="{Binding User}" ></TextBlock>
+            <Label Content="{Binding User}" FontSize="16" VerticalContentAlignment="Bottom"/>
         </StackPanel>
         <Grid Grid.Row="1">
-        <DataGrid ItemsSource="{Binding Generations, Mode=OneWay}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" >
+        <DataGrid ItemsSource="{Binding Requests, Mode=OneWay}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" >
           
                 <DataGrid.Columns>
-                <DataGridTextColumn Header="User Id" Binding="{Binding Guid}" MaxWidth="150" MinWidth="50"></DataGridTextColumn>
-                    <DataGridTextColumn Header="From" Binding="{Binding From}" MaxWidth="150" MinWidth="50"></DataGridTextColumn>
-                    <DataGridTextColumn Header="To" Binding="{Binding To}" MaxWidth="150" MinWidth="50"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Quontity" Binding="{Binding Quontity}" MaxWidth="150" MinWidth="50"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Date" Binding="{Binding Date}" MaxWidth="150" MinWidth="50"></DataGridTextColumn>
+                <DataGridTextColumn Header="Request ID" Binding="{Binding Guid}" MaxWidth="150" MinWidth="50"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Start range" Binding="{Binding StartRange}" MaxWidth="150" MinWidth="50"></DataGridTextColumn>
+                    <DataGridTextColumn Header="End range" Binding="{Binding EndRange}" MaxWidth="150" MinWidth="50"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Count" Binding="{Binding Count}" MaxWidth="150" MinWidth="50"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Request time" Binding="{Binding RequestTime}" MaxWidth="150" MinWidth="50"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         </Grid>

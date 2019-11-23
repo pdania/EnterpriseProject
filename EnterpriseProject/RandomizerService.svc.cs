@@ -26,5 +26,11 @@ namespace EnterpriseProject
             DBConnection dbConnection = new DBConnection();
             dbConnection.AddRequest(userGuid, request);
         }
+
+        public List<Request> GetAllRequests(Guid userGuid)
+        {
+            DBConnection dbConnection = new DBConnection();
+            return dbConnection.GetAllRequests(userGuid);
+        }
     }
 }

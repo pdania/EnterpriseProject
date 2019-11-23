@@ -33,6 +33,15 @@ namespace ServerImplementation
             using (var context = new RandomizerDBContext())
             {
                context.Users.FirstOrDefault(user1 => user1.Guid == userGuid)?.Requests.Add(request);
+               context.SaveChanges();
+            }
+        }
+
+        public List<Request> GetAllRequests(Guid userGuid)
+        {
+            using (var context = new RandomizerDBContext())
+            {
+                return context.Users.FirstOrDefault(user => user.Guid == userGuid)?.Requests;
             }
         }
     }

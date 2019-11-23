@@ -1,16 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace DBModels
 {
+    [DataContract(IsReference = true)]
     public class User: IDBModel
     {
         #region Fields
+        [DataMember]
         private string _name;
+        [DataMember]
         private string _surname;
+        [DataMember]
         private Guid _guid;
+        [DataMember]
         private string _email;
+        [DataMember]
         private string _password;
+        [DataMember]
         private List<Request> _requests;
         #endregion
 

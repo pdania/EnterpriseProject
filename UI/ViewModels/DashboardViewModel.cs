@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Documents;
-using System.Windows.Navigation;
+using System.Windows;
+using ClientSide;
+using DBModels;
 using UI.Tools;
 using UI.Tools.Managers;
 using UI.Tools.Navigation;
@@ -13,6 +13,7 @@ namespace UI.ViewModels
 {
     public class DashboardViewModel:BaseViewModel
     {
+        #region Fields
         private RelayCommand<object> _generateCommand;
         private RelayCommand<object> _exitCommand;
         private string _startRange;
@@ -20,7 +21,10 @@ namespace UI.ViewModels
         private List<int> _result;
         private RelayCommand<object> _loginCommand;
         private RelayCommand<object> _historyCommand;
+        private string _user;
+        #endregion
 
+        #region Properties
         public string StartRange
         {
             get { return _startRange; }
@@ -39,18 +43,32 @@ namespace UI.ViewModels
                 OnPropertyChanged();
             }
         }
+        public List<int> Result
+        {
+            get { return _result; }
+            set
+            {
+                _result = value;
+                OnPropertyChanged();
+            }
+        }
 
+        public string User
+        {
+            get => _user;
+            set => _user = value;
+        } 
+        #endregion
+
+        #region Commands
         public RelayCommand<object> GenerateCommand
         {
             get
             {
                 return _generateCommand ?? (_generateCommand = new RelayCommand<object>(
-                         GenerateImplementation, o => CanExecuteCommand()));
+                           GenerateImplementation, o => CanExecuteCommand()));
             }
         }
-
-        
-
         public RelayCommand<object> ExitCommand
         {
             get
@@ -75,30 +93,39 @@ namespace UI.ViewModels
 
         private bool CanExecuteCommand()
         {
-            if (string.IsNullOrWhiteSpace(StartRange)|| string.IsNullOrWhiteSpace(EndRange)) return false;
+            if (string.IsNullOrWhiteSpace(StartRange) || string.IsNullOrWhiteSpace(EndRange)) return false;
             if (!EndRange.All(char.IsDigit) || !StartRange.All(char.IsDigit)) return false;
-            return Convert.ToInt32(StartRange)< Convert.ToInt32(EndRange);
+            return Int32.Parse(StartRange) < Int32.Parse(EndRange);
             ;
         }
-        public List<int> Result
-        {
-            get { return _result; }
-            set
-            {
-                _result = value;
-                OnPropertyChanged();
-            }
-        }
+        #endregion
 
+
+        public DashboardViewModel()
+        {
+            User = $"User: {StationManager.CurrentUser.Name} {StationManager.CurrentUser.Surname}";
+        }
         private async void GenerateImplementation(object obj)
         {
-            int start = Convert.ToInt32(StartRange);
-            int end = Convert.ToInt32(EndRange);
-            var l = Enumerable.Range(start,end-start+1);
+            int start = Int32.Parse(StartRange);
+            int end = Int32.Parse(EndRange);
+            var l = Enumerable.Range(start,end-start);
             LoaderManeger.Instance.ShowLoader();
-            var res = await Task.Run(() => RandomShuffle(l));
+            var shuffledList = await Task.Run(() => RandomShuffle(l));
+            await Task.Run(() =>
+            {
+                try
+                {
+                    RestApi.AddRequest(StationManager.CurrentUser.Guid,
+                        new Request(Int32.Parse(StartRange), Int32.Parse(EndRange)));
+                }
+                catch
+                {
+                    MessageBox.Show($"An error occured while adding new request.");
+                }
+            });
             LoaderManeger.Instance.HideLoader();
-            Result = res;
+            Result = shuffledList;
         }
 
 

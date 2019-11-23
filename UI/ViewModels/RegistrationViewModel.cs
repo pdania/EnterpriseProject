@@ -1,6 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Windows;
 using ClientSide;
@@ -18,16 +18,27 @@ namespace UI.ViewModels
         private string _login;
         private string _email;
         private string _password;
-        private string _confrimPassword;
+        private string _confirmPassword;
         private RelayCommand<object> _signUp;
+        private string _surname;
+        private string _name;
 
 
-        public string Login
+        public string Name
         {
-            get { return _login; }
+            get { return _name; }
             set
             {
-                _login = value;
+                _name = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Surname
+        {
+            get { return _surname; }
+            set
+            {
+                _surname = value;
                 OnPropertyChanged();
             }
         }
@@ -47,27 +58,21 @@ namespace UI.ViewModels
             get { return _password; }
             set
             {
-                if (value.Length != 0)
-                    _password = null;
-                else
-                    _password = Cipher.Encrypt(value);
+                _password = string.IsNullOrWhiteSpace(value) ? null : Cipher.Encrypt(value);
                 OnPropertyChanged();
             }
         }
-        public string ConfrimPassword
+        public string ConfirmPassword
         {
-            get { return _confrimPassword; }
+            get { return _confirmPassword; }
             set
             {
-                if (value.Length != 0)
-                    _confrimPassword = null;
-                else
-                    _confrimPassword = Cipher.Encrypt(value);
+                _confirmPassword = string.IsNullOrWhiteSpace(value) ? null : Cipher.Encrypt(value);
                 OnPropertyChanged();
             }
         }
 
-        public RelayCommand<object> SignUPCommand
+        public RelayCommand<object> SignUpCommand
         {
             get
             {
@@ -78,19 +83,8 @@ namespace UI.ViewModels
 
         private bool CanExecuteCommand()
         {
-            return (ConfrimPassword.Equals(Password)) && IsEmailValid(Email);
-        }
-        public bool IsEmailValid(string emailaddress)
-        {
-            try
-            {
-                MailAddress m = new MailAddress(emailaddress);
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
+            if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Surname) || string.IsNullOrWhiteSpace(ConfirmPassword) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Email)) return false;
+            return (ConfirmPassword.Equals(Password)) && new EmailAddressAttribute().IsValid(Email);
         }
 
         private async void SignUpImplementation(object obj)
@@ -101,21 +95,23 @@ namespace UI.ViewModels
                 var users = RestApi.GetAllUsers();
                 var user = (from userIterator in users
                     where userIterator.Email == Email
-                    select userIterator).First();
+                    select userIterator).FirstOrDefault();
                 if (user != null)
                 {
                     MessageBox.Show(
                         $"Sign up failed fo user {Email}. Reason:{Environment.NewLine}User with such email already exists");
+                    Password = null;
+                    ConfirmPassword = null;
                     return false;
                 }
-                RestApi.AddUser(new User());
-                StationManager.CurrentUser = user;
-                MessageBox.Show($"Sign In successfull fo user {Email}.");
+                RestApi.AddUser(new User(Name,Surname,Email,Password));
+                MessageBox.Show($"Sign Up successful for user {Name} {Surname}.");
                 return true;
             });
             LoaderManeger.Instance.HideLoader();
             if (result)
             {
+                SetNull();
                 NavigationManager.Instance.Navigate(ViewType.Login);
             }
         }
@@ -123,6 +119,15 @@ namespace UI.ViewModels
         public RelayCommand<object> CancelCommand
         {
             get { return _cancelCommand ?? (_cancelCommand = new RelayCommand<object>(o => NavigationManager.Instance.Navigate(ViewType.Login))); }
+        }
+
+        private void SetNull()
+        {
+            Email = null;
+            Password = null;
+            ConfirmPassword = null;
+            Name = null;
+            Surname = null;
         }
     }
 }

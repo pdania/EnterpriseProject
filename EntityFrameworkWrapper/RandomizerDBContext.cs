@@ -16,7 +16,6 @@ namespace EntityFrameworkWrapper
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new RequestConfiguration());
         }

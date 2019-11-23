@@ -8,6 +8,19 @@ namespace EntityFrameworkWrapper.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.Users",
+                c => new
+                    {
+                        ID = c.Guid(nullable: false),
+                        Name = c.String(nullable: false),
+                        Surname = c.String(nullable: false),
+                        Email = c.String(nullable: false, maxLength: 256),
+                        Password = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .Index(t => t.Email, unique: true);
+            
+            CreateTable(
                 "dbo.Requests",
                 c => new
                     {
@@ -23,28 +36,15 @@ namespace EntityFrameworkWrapper.Migrations
                 .ForeignKey("dbo.Users", t => t.User_Guid)
                 .Index(t => t.User_Guid);
             
-            CreateTable(
-                "dbo.Users",
-                c => new
-                    {
-                        ID = c.Guid(nullable: false),
-                        Name = c.String(nullable: false),
-                        Surname = c.String(nullable: false),
-                        Email = c.String(nullable: false, maxLength: 256),
-                        Password = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .Index(t => t.Email, unique: true);
-            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Requests", "User_Guid", "dbo.Users");
-            DropIndex("dbo.Users", new[] { "Email" });
             DropIndex("dbo.Requests", new[] { "User_Guid" });
-            DropTable("dbo.Users");
+            DropIndex("dbo.Users", new[] { "Email" });
             DropTable("dbo.Requests");
+            DropTable("dbo.Users");
         }
     }
 }

@@ -17,13 +17,9 @@ namespace ClientSide
 
         private static string GenerateEncryptionKey()
         {
-            string EncryptionKey = string.Empty;
+            string encryptionKey = "XYZ" + "verylongmessagethatimpossibletohack";
 
-            Random Robj = new Random();
-            int Rnumber = Robj.Next();
-            EncryptionKey = "XYZ" + Convert.ToString(Rnumber);
-
-            return EncryptionKey;
+            return encryptionKey;
         }
 
         public static string Encrypt(string clearText)

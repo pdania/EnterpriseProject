@@ -16,5 +16,8 @@ namespace ServerInterface
 
         [OperationContract]
         void AddRequest(Guid guid, Request request);
+
+        [OperationContract]
+        List<Request> GetAllRequests(Guid userGuid);
     }
 }

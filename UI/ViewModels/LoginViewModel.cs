@@ -45,10 +45,7 @@ namespace UI.ViewModels
             get { return _password; }
             set
             {
-                if (value.Length != 0)
-                    _password = null;
-                else
-                _password = Cipher.Encrypt(value);
+                _password = string.IsNullOrWhiteSpace(value) ? null : Cipher.Encrypt(value);
                 OnPropertyChanged();
             }
         }
@@ -96,16 +93,17 @@ namespace UI.ViewModels
                 var users = RestApi.GetAllUsers();
                 var user = (from userIterator in users
                     where userIterator.Email == Email && userIterator.Password == Password
-                    select userIterator).First();
+                    select userIterator).FirstOrDefault();
                 if (user == null)
                 {
                     MessageBox.Show(
                         $"Sign in failed fo user {Email}. Reason:{Environment.NewLine}User doesn't exist, sign up first");
+                    SetNull();
                     return false;
                 }
 
                 StationManager.CurrentUser = user;
-                MessageBox.Show($"Sign In successfull fo user {Email}.");
+                MessageBox.Show($"Sign In successful for user {user.Name} {user.Surname}.");
                 return true;
             });
             LoaderManeger.Instance.HideLoader();
@@ -113,6 +111,12 @@ namespace UI.ViewModels
             {
                 NavigationManager.Instance.Navigate(ViewType.Dashboard);
             }
+        }
+
+        private void SetNull()
+        {
+            Email = null;
+            Password = null;
         }
     }
 }

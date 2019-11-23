@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using ClientSide.RandomizerService;
 using DBModels;
@@ -23,9 +24,6 @@ namespace ClientSide
         {
             using (var randomizerService = new RandomizerServiceClient(new System.ServiceModel.BasicHttpBinding(), RemoteAddress))
             {
-
-
-                //call web service method
                 var users = randomizerService.GetAllUsers();
                 randomizerService.Close();
                 return users;
@@ -40,6 +38,16 @@ namespace ClientSide
             {
                 randomizerService.AddRequest(userGuid, request);
                 randomizerService.Close();
+            }
+        }
+
+        public static List<Request> GetAllRequests(Guid userGuid)
+        {
+            using (var randomizerService = new RandomizerServiceClient(new System.ServiceModel.BasicHttpBinding(), RemoteAddress))
+            {
+                var users = randomizerService.GetAllRequests(userGuid);
+                randomizerService.Close();
+                return users.ToList();
             }
         }
     }

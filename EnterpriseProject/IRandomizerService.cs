@@ -17,5 +17,8 @@ namespace EnterpriseProject
 
         [OperationContract]
         void AddRequest(Guid userGuid, Request request);
+
+        [OperationContract]
+        List<Request> GetAllRequests(Guid userGuid);
     }
 }
