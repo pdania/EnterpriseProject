@@ -11,9 +11,10 @@ using UI.Tools.Navigation;
 
 namespace UI.ViewModels
 {
-    public class DashboardViewModel:BaseViewModel
+    public class DashboardViewModel : BaseViewModel
     {
         #region Fields
+
         private RelayCommand<object> _generateCommand;
         private RelayCommand<object> _exitCommand;
         private string _startRange;
@@ -22,9 +23,11 @@ namespace UI.ViewModels
         private RelayCommand<object> _loginCommand;
         private RelayCommand<object> _historyCommand;
         private string _user;
+
         #endregion
 
         #region Properties
+
         public string StartRange
         {
             get { return _startRange; }
@@ -34,6 +37,7 @@ namespace UI.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public string EndRange
         {
             get { return _endRange; }
@@ -43,6 +47,7 @@ namespace UI.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public List<int> Result
         {
             get { return _result; }
@@ -57,10 +62,12 @@ namespace UI.ViewModels
         {
             get => _user;
             set => _user = value;
-        } 
+        }
+
         #endregion
 
         #region Commands
+
         public RelayCommand<object> GenerateCommand
         {
             get
@@ -69,25 +76,29 @@ namespace UI.ViewModels
                            GenerateImplementation, o => CanExecuteCommand()));
             }
         }
+
         public RelayCommand<object> ExitCommand
         {
-            get
-            {
-                return _exitCommand ?? (_exitCommand = new RelayCommand<object>(o => Environment.Exit(0)));
-            }
+            get { return _exitCommand ?? (_exitCommand = new RelayCommand<object>(o => Environment.Exit(0))); }
         }
+
         public RelayCommand<object> LoginCommand
         {
             get
             {
-                return _loginCommand ?? (_loginCommand = new RelayCommand<object>(o => NavigationManager.Instance.Navigate(ViewType.Login)));
+                return _loginCommand ?? (_loginCommand =
+                           new RelayCommand<object>(o => NavigationManager.Instance.Navigate(ViewType.Login)));
             }
         }
+
         public RelayCommand<object> HistoryCommand
         {
             get
             {
-                return _historyCommand ?? (_historyCommand = new RelayCommand<object>(o => NavigationManager.Instance.Navigate(ViewType.Information)));
+                return _historyCommand ?? (_historyCommand = new RelayCommand<object>(o =>
+                {
+                    NavigationManager.Instance.Navigate(ViewType.Information);
+                }));
             }
         }
 
@@ -98,6 +109,7 @@ namespace UI.ViewModels
             return Int32.Parse(StartRange) < Int32.Parse(EndRange);
             ;
         }
+
         #endregion
 
 
@@ -105,11 +117,12 @@ namespace UI.ViewModels
         {
             User = $"User: {StationManager.CurrentUser.Name} {StationManager.CurrentUser.Surname}";
         }
+
         private async void GenerateImplementation(object obj)
         {
             int start = Int32.Parse(StartRange);
             int end = Int32.Parse(EndRange);
-            var l = Enumerable.Range(start,end-start);
+            var l = Enumerable.Range(start, end - start);
             LoaderManeger.Instance.ShowLoader();
             var shuffledList = await Task.Run(() => RandomShuffle(l));
             await Task.Run(() =>
@@ -117,7 +130,7 @@ namespace UI.ViewModels
                 try
                 {
                     RestApi.AddRequest(StationManager.CurrentUser.Guid,
-                        new Request(Int32.Parse(StartRange), Int32.Parse(EndRange)));
+                        new Request(Int32.Parse(StartRange), Int32.Parse(EndRange), StationManager.CurrentUser.Guid));
                 }
                 catch
                 {
@@ -129,23 +142,19 @@ namespace UI.ViewModels
         }
 
 
-
         private List<T> RandomShuffle<T>(IEnumerable<T> list)
         {
-            
-          
-                var random = new Random();
-                var shuffle = new List<T>(list);
-                for (var i = 2; i < shuffle.Count; ++i)
-                {
-                    var temp = shuffle[i];
-                    var nextRandom = random.Next(i - 1);
-                    shuffle[i] = shuffle[nextRandom];
-                    shuffle[nextRandom] = temp;
-                }
+            var random = new Random();
+            var shuffle = new List<T>(list);
+            for (var i = 2; i < shuffle.Count; ++i)
+            {
+                var temp = shuffle[i];
+                var nextRandom = random.Next(i - 1);
+                shuffle[i] = shuffle[nextRandom];
+                shuffle[nextRandom] = temp;
+            }
 
-                
-      
+
             return shuffle;
         }
     }

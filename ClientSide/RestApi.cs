@@ -45,9 +45,9 @@ namespace ClientSide
         {
             using (var randomizerService = new RandomizerServiceClient(new System.ServiceModel.BasicHttpBinding(), RemoteAddress))
             {
-                var users = randomizerService.GetAllRequests(userGuid);
+                var requests = randomizerService.GetAllRequests(userGuid);
                 randomizerService.Close();
-                return users.ToList();
+                return requests.ToList();
             }
         }
     }

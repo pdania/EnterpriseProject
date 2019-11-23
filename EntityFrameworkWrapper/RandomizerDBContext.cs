@@ -13,6 +13,7 @@ namespace EntityFrameworkWrapper
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Request> Requests { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

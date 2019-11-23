@@ -90,7 +90,7 @@ namespace UI.ViewModels
 
             var result = await Task.Run(() =>
             {
-                var users = RestApi.GetAllUsers();
+                    var users = RestApi.GetAllUsers();
                 var user = (from userIterator in users
                     where userIterator.Email == Email && userIterator.Password == Password
                     select userIterator).FirstOrDefault();

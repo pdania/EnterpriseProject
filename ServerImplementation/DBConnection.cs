@@ -41,7 +41,8 @@ namespace ServerImplementation
         {
             using (var context = new RandomizerDBContext())
             {
-                return context.Users.FirstOrDefault(user => user.Guid == userGuid)?.Requests;
+                var requests = context.Requests.Where(rec => rec.OwnerGuid == userGuid).ToList();
+                return requests;
             }
         }
     }

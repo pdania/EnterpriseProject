@@ -70,11 +70,12 @@ namespace DBModels
         #endregion
 
         #region Constructors
-        public Request(int startRange, int endRange) : this()
+        public Request(int startRange, int endRange, Guid userGuid) : this()
         {
             StartRange = startRange;
             EndRange = endRange;
             Count = EndRange - StartRange;
+            OwnerGuid = userGuid;
         }
 
         public Request()

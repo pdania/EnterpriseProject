@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
@@ -16,6 +17,7 @@ namespace UI.ViewModels
         private RelayCommand<object> _backCommand;
         private string _user;
         private List<Request> _requests;
+        private RelayCommand<object> _refreshCommand;
 
         public string User
         {
@@ -29,7 +31,11 @@ namespace UI.ViewModels
         public List<Request> Requests
         {
             get => _requests;
-            set => _requests = value;
+            set
+            {
+                _requests = value; 
+                OnPropertyChanged();
+            }
         }
 
         public RelayCommand<object> BackCommand
@@ -40,21 +46,27 @@ namespace UI.ViewModels
             }
         }
 
+        public RelayCommand<object> RefreshCommand
+        {
+            get
+            {
+                return _refreshCommand ?? (_refreshCommand = new RelayCommand<object>(o => GetRequests()));
+            }
+        }
         public InformationViewModel()
         {
-            LoaderManeger.Instance.ShowLoader();
             User = $"User: {StationManager.CurrentUser.Name} {StationManager.CurrentUser.Surname}";
-            Requests = GetRequests().Result;
-            LoaderManeger.Instance.HideLoader();
+            GetRequests();
         }
-
-        private async Task<List<Request>> GetRequests()
+        private async void GetRequests()
         {
+            LoaderManeger.Instance.ShowLoader();
             var requests = await Task.Run(() =>
             {
                 try
                 {
-                   return RestApi.GetAllRequests(StationManager.CurrentUser.Guid);
+                    return RestApi.GetAllRequests(StationManager.CurrentUser.Guid);
+                    
                 }
                 catch
                 {
@@ -62,7 +74,8 @@ namespace UI.ViewModels
                     return null;
                 }
             });
-            return requests;
+            Requests = requests.OrderByDescending(x => x.RequestTime).ToList();
+            LoaderManeger.Instance.HideLoader();
         }
     }
 }
