@@ -28,7 +28,7 @@ namespace UI
             InitializeComponent();
             DataContext = new MainWindowViewModel();
             NavigationManager.Instance.Initialize(new InitializationNavigationModel(this));
-            NavigationManager.Instance.Navigate(ViewType.Login);
+            NavigationManager.Instance.Navigate(ViewType.Dashboard);
         }
 
         public ContentControl ContentControl

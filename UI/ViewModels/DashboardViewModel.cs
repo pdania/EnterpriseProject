@@ -89,14 +89,14 @@ namespace UI.ViewModels
             }
         }
 
-        private void GenerateImplementation(object obj)
+        private async void GenerateImplementation(object obj)
         {
             int start = Convert.ToInt32(StartRange);
             int end = Convert.ToInt32(EndRange);
-            var l = Enumerable.Range(start,end-start);
-           
-            Result =  RandomShuffle(l);
-            
+            var l = Enumerable.Range(start,end-start+1);
+            await Task.Run(() =>
+                Result = RandomShuffle(l)
+            );
         }
 
 

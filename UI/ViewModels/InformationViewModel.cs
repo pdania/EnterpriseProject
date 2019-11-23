@@ -7,6 +7,16 @@ namespace UI.ViewModels
     public class InformationViewModel: BaseViewModel
     {
         private RelayCommand<object> _backCommand;
+        private string _user;
+
+        public string User
+        {
+            get
+            {
+                return _user;
+            }
+            set => _user=value;
+        }
 
         public RelayCommand<object> BackCommand
         {
