@@ -31,6 +31,12 @@
   <wsdl:message name="IRandomizerService_GetAllRequests_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllRequestsResponse" />
   </wsdl:message>
+  <wsdl:message name="IRandomizerService_ChangeUserDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeUserDate" />
+  </wsdl:message>
+  <wsdl:message name="IRandomizerService_ChangeUserDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeUserDateResponse" />
+  </wsdl:message>
   <wsdl:portType name="IRandomizerService">
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IRandomizerService/AddUser" message="tns:IRandomizerService_AddUser_InputMessage" />
@@ -47,6 +53,10 @@
     <wsdl:operation name="GetAllRequests">
       <wsdl:input wsaw:Action="http://tempuri.org/IRandomizerService/GetAllRequests" message="tns:IRandomizerService_GetAllRequests_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRandomizerService/GetAllRequestsResponse" message="tns:IRandomizerService_GetAllRequests_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeUserDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRandomizerService/ChangeUserDate" message="tns:IRandomizerService_ChangeUserDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRandomizerService/ChangeUserDateResponse" message="tns:IRandomizerService_ChangeUserDate_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IRandomizerService" type="tns:IRandomizerService">
@@ -80,6 +90,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllRequests">
       <soap:operation soapAction="http://tempuri.org/IRandomizerService/GetAllRequests" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeUserDate">
+      <soap:operation soapAction="http://tempuri.org/IRandomizerService/ChangeUserDate" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

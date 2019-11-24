@@ -32,5 +32,11 @@ namespace EnterpriseProject
             DBConnection dbConnection = new DBConnection();
             return dbConnection.GetAllRequests(userGuid);
         }
+
+        public void ChangeUserDate(Guid userGuid)
+        {
+            DBConnection dbConnection = new DBConnection();
+            dbConnection.ChangeUserDate(userGuid);
+        }
     }
 }

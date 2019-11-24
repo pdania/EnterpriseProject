@@ -9,10 +9,10 @@ namespace ClientSide
 {
     public static class RestApi
     {
-        private static readonly EndpointAddress RemoteAddress = new System.ServiceModel.EndpointAddress("http://localhost:57196/RandomizerService.svc");
+        private static readonly EndpointAddress RemoteAddress = new EndpointAddress("http://localhost:57196/RandomizerService.svc");
         public static void AddUser(User user)
         {
-            using (var randomizerService = new RandomizerServiceClient(new System.ServiceModel.BasicHttpBinding(), RemoteAddress))
+            using (var randomizerService = new RandomizerServiceClient(new BasicHttpBinding(), RemoteAddress))
             {
                 randomizerService.AddUser(user);
                 randomizerService.Close();
@@ -22,7 +22,7 @@ namespace ClientSide
 
         public static IEnumerable<User> GetAllUsers()
         {
-            using (var randomizerService = new RandomizerServiceClient(new System.ServiceModel.BasicHttpBinding(), RemoteAddress))
+            using (var randomizerService = new RandomizerServiceClient(new BasicHttpBinding(), RemoteAddress))
             {
                 var users = randomizerService.GetAllUsers();
                 randomizerService.Close();
@@ -34,7 +34,7 @@ namespace ClientSide
         public static void AddRequest(Guid userGuid, Request request)
         {
             using (var randomizerService =
-                new RandomizerServiceClient(new System.ServiceModel.BasicHttpBinding(), RemoteAddress))
+                new RandomizerServiceClient(new BasicHttpBinding(), RemoteAddress))
             {
                 randomizerService.AddRequest(userGuid, request);
                 randomizerService.Close();
@@ -43,11 +43,21 @@ namespace ClientSide
 
         public static List<Request> GetAllRequests(Guid userGuid)
         {
-            using (var randomizerService = new RandomizerServiceClient(new System.ServiceModel.BasicHttpBinding(), RemoteAddress))
+            using (var randomizerService = new RandomizerServiceClient(new BasicHttpBinding(), RemoteAddress))
             {
                 var requests = randomizerService.GetAllRequests(userGuid);
                 randomizerService.Close();
                 return requests.ToList();
+            }
+        }
+
+        public static void ChangeUserDate(Guid userGuid)
+        {
+            using (var randomizerService =
+                new RandomizerServiceClient(new BasicHttpBinding(), RemoteAddress))
+            {
+                randomizerService.ChangeUserDate(userGuid);
+                randomizerService.Close();
             }
         }
     }

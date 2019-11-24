@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
 using ClientSide;
 using DBModels;
 using UI.Tools;
@@ -19,19 +17,26 @@ namespace UI.ViewModels
         private List<Request> _requests;
         private RelayCommand<object> _refreshCommand;
 
+        //Implementing singletone pattern to be able to change properties of this class from outside
+        private static readonly InformationViewModel Instance = new InformationViewModel();
+
         public string User
         {
             get
             {
                 return _user;
             }
-            set => _user=value;
+            private set
+            {
+                _user = value;
+                OnPropertyChanged();
+            }
         }
 
         public List<Request> Requests
         {
             get => _requests;
-            set
+            private set
             {
                 _requests = value; 
                 OnPropertyChanged();
@@ -53,14 +58,22 @@ namespace UI.ViewModels
                 return _refreshCommand ?? (_refreshCommand = new RelayCommand<object>(o => GetRequests()));
             }
         }
-        public InformationViewModel()
+
+        public void UpdateFields()
         {
+            LoaderManeger.Instance.ShowLoader();
             User = $"User: {StationManager.CurrentUser.Name} {StationManager.CurrentUser.Surname}";
             GetRequests();
+            LoaderManeger.Instance.HideLoader();
+        }
+        private InformationViewModel()
+        {}
+        public static InformationViewModel GetInstance()
+        {
+            return Instance;
         }
         private async void GetRequests()
         {
-            LoaderManeger.Instance.ShowLoader();
             var requests = await Task.Run(() =>
             {
                 try
@@ -70,12 +83,11 @@ namespace UI.ViewModels
                 }
                 catch
                 {
-                    MessageBox.Show($"An error occured while trying to get all requests");
+                    MessageBox.Show("An error occured while trying to get all requests");
                     return null;
                 }
             });
             Requests = requests.OrderByDescending(x => x.RequestTime).ToList();
-            LoaderManeger.Instance.HideLoader();
         }
     }
 }

@@ -20,6 +20,9 @@ namespace DBModels
         private string _password;
         [DataMember]
         private List<Request> _requests;
+        [DataMember]
+        private DateTime _time;
+
         #endregion
 
         #region Properties
@@ -53,6 +56,12 @@ namespace DBModels
             private set => _password = value;
         }
 
+        public DateTime Time
+        {
+            get => _time;
+            set => _time = value;
+        }
+
         public List<Request> Requests
         {
             get => _requests;
@@ -68,6 +77,7 @@ namespace DBModels
             Surname = surname;
             Email = email;
             Password = password;
+            Time = DateTime.Now;
         }
         public User()
         {

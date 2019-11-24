@@ -1,9 +1,8 @@
 namespace EntityFrameworkWrapper.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
-    public partial class UserMigration : DbMigration
+    public partial class MyMigration : DbMigration
     {
         public override void Up()
         {
@@ -32,6 +31,7 @@ namespace EntityFrameworkWrapper.Migrations
                         Surname = c.String(nullable: false),
                         Email = c.String(nullable: false, maxLength: 256),
                         Password = c.String(nullable: false),
+                        Lastentertime = c.DateTime(name: "Last enter time", nullable: false, precision: 7, storeType: "datetime2"),
                     })
                 .PrimaryKey(t => t.ID)
                 .Index(t => t.Email, unique: true);

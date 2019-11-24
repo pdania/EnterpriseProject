@@ -9,6 +9,7 @@
       <xs:element minOccurs="0" name="_password" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="_requests" nillable="true" type="tns:ArrayOfRequest" />
       <xs:element minOccurs="0" name="_surname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="_time" type="xs:dateTime" />
     </xs:sequence>
     <xs:attribute ref="ser:Id" />
     <xs:attribute ref="ser:Ref" />

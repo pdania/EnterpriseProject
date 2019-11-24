@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Security;
 using DBModels;
 using EntityFrameworkWrapper;
 using ServerInterface;
@@ -43,6 +42,16 @@ namespace ServerImplementation
             {
                 var requests = context.Requests.Where(rec => rec.OwnerGuid == userGuid).ToList();
                 return requests;
+            }
+        }
+
+        public void ChangeUserDate(Guid userGuid)
+        {
+            using (var context = new RandomizerDBContext())
+            {
+                // ReSharper disable once PossibleNullReferenceException
+                context.Users.FirstOrDefault(user => user.Guid == userGuid).Time = DateTime.Now;
+                context.SaveChanges();
             }
         }
     }

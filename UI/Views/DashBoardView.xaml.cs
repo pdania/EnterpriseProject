@@ -12,7 +12,7 @@ namespace UI.Views
         public DashboardView()
         {
             InitializeComponent();
-            DataContext =new  DashboardViewModel();
+            DataContext =DashboardViewModel.GetInstance();
         }
     }
 }

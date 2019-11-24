@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using ClientSide;
-using DBModels;
 using UI.Tools;
 using UI.Tools.Managers;
 using UI.Tools.Navigation;
+using DBModels;
 
 namespace UI.ViewModels
 {
@@ -90,7 +91,17 @@ namespace UI.ViewModels
 
             var result = await Task.Run(() =>
             {
-                    var users = RestApi.GetAllUsers();
+                IEnumerable<User> users;
+                try
+                {
+                    users = RestApi.GetAllUsers();
+                }
+                catch
+                {
+                    MessageBox.Show(
+                        "Error, server connection failed");
+                    return false;
+                }
                 var user = (from userIterator in users
                     where userIterator.Email == Email && userIterator.Password == Password
                     select userIterator).FirstOrDefault();
@@ -101,7 +112,7 @@ namespace UI.ViewModels
                     SetNull();
                     return false;
                 }
-
+                RestApi.ChangeUserDate(user.Guid);
                 StationManager.CurrentUser = user;
                 MessageBox.Show($"Sign In successful for user {user.Name} {user.Surname}.");
                 return true;
@@ -109,6 +120,8 @@ namespace UI.ViewModels
             LoaderManeger.Instance.HideLoader();
             if (result)
             {
+                DashboardViewModel.GetInstance().UpdateFields();
+                SetNull();
                 NavigationManager.Instance.Navigate(ViewType.Dashboard);
             }
         }

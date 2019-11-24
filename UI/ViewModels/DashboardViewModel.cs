@@ -24,6 +24,9 @@ namespace UI.ViewModels
         private RelayCommand<object> _historyCommand;
         private string _user;
 
+        //Implementing singletone pattern to be able to change properties of this class from outside
+        private static readonly DashboardViewModel Instance = new DashboardViewModel();
+
         #endregion
 
         #region Properties
@@ -51,7 +54,7 @@ namespace UI.ViewModels
         public List<int> Result
         {
             get { return _result; }
-            set
+            private set
             {
                 _result = value;
                 OnPropertyChanged();
@@ -61,7 +64,11 @@ namespace UI.ViewModels
         public string User
         {
             get => _user;
-            set => _user = value;
+            private set
+            {
+                _user = value;
+                OnPropertyChanged();
+            }
         }
 
         #endregion
@@ -87,7 +94,11 @@ namespace UI.ViewModels
             get
             {
                 return _loginCommand ?? (_loginCommand =
-                           new RelayCommand<object>(o => NavigationManager.Instance.Navigate(ViewType.Login)));
+                           new RelayCommand<object>(o =>
+                           {
+                               SetNull();
+                               NavigationManager.Instance.Navigate(ViewType.Login);
+                           }));
             }
         }
 
@@ -97,6 +108,7 @@ namespace UI.ViewModels
             {
                 return _historyCommand ?? (_historyCommand = new RelayCommand<object>(o =>
                 {
+                    InformationViewModel.GetInstance().UpdateFields();
                     NavigationManager.Instance.Navigate(ViewType.Information);
                 }));
             }
@@ -107,17 +119,27 @@ namespace UI.ViewModels
             if (string.IsNullOrWhiteSpace(StartRange) || string.IsNullOrWhiteSpace(EndRange)) return false;
             if (!EndRange.All(char.IsDigit) || !StartRange.All(char.IsDigit)) return false;
             return Int32.Parse(StartRange) < Int32.Parse(EndRange);
-            ;
         }
 
         #endregion
 
+        private void SetNull()
+        {
+            StartRange = null;
+            EndRange = null;
+            Result = null;
+        }
+        private DashboardViewModel()
+        {}
 
-        public DashboardViewModel()
+        public void UpdateFields()
         {
             User = $"User: {StationManager.CurrentUser.Name} {StationManager.CurrentUser.Surname}";
         }
-
+        public static DashboardViewModel GetInstance()
+        {
+            return Instance;
+        }
         private async void GenerateImplementation(object obj)
         {
             int start = Int32.Parse(StartRange);
@@ -134,7 +156,7 @@ namespace UI.ViewModels
                 }
                 catch
                 {
-                    MessageBox.Show($"An error occured while adding new request.");
+                    MessageBox.Show("An error occured while adding new request.");
                 }
             });
             LoaderManeger.Instance.HideLoader();

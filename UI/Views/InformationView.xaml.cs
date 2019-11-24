@@ -12,7 +12,7 @@ namespace UI.Views
         public InformationView()
         {
             InitializeComponent();
-            DataContext = new InformationViewModel();
+            DataContext = InformationViewModel.GetInstance();
         }
     }
 }

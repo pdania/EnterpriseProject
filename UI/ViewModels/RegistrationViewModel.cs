@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +16,6 @@ namespace UI.ViewModels
     public class RegistrationViewModel:BaseViewModel
     {
         private RelayCommand<object> _cancelCommand;
-        private string _login;
         private string _email;
         private string _password;
         private string _confirmPassword;
@@ -92,7 +92,17 @@ namespace UI.ViewModels
             LoaderManeger.Instance.ShowLoader();
             var result = await Task.Run(() =>
             {
-                var users = RestApi.GetAllUsers();
+                IEnumerable<User> users;
+                try
+                {
+                    users = RestApi.GetAllUsers();
+                }
+                catch
+                {
+                    MessageBox.Show(
+                        "Error, server connection failed");
+                    return false;
+                }
                 var user = (from userIterator in users
                     where userIterator.Email == Email
                     select userIterator).FirstOrDefault();
@@ -118,7 +128,11 @@ namespace UI.ViewModels
 
         public RelayCommand<object> CancelCommand
         {
-            get { return _cancelCommand ?? (_cancelCommand = new RelayCommand<object>(o => NavigationManager.Instance.Navigate(ViewType.Login))); }
+            get { return _cancelCommand ?? (_cancelCommand = new RelayCommand<object>(o =>
+                             {
+                                 SetNull();
+                                 NavigationManager.Instance.Navigate(ViewType.Login);
+                             })); }
         }
 
         private void SetNull()

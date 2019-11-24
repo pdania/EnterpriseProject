@@ -19,5 +19,8 @@ namespace ServerInterface
 
         [OperationContract]
         List<Request> GetAllRequests(Guid userGuid);
+
+        [OperationContract]
+        void ChangeUserDate(Guid userGuid);
     }
 }
