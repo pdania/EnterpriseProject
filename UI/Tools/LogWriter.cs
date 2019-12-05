@@ -35,7 +35,7 @@ namespace UI.Tools
                 path = value;
             }
         }
-        public static async Task writeInFile(string path, string text)
+        public async Task writeInFile(string path, string text)
         {
 
             StreamWriter sw = null;
@@ -64,7 +64,7 @@ namespace UI.Tools
             }
         }
 
-        public static string readFromFile(string path)
+        public string readFromFile(string path)
         {
             string res = null;
             StreamReader sr = null;
@@ -88,7 +88,7 @@ namespace UI.Tools
             return res;
         }
 
-        public static async Task clearFile(string path)
+        public async Task clearFile(string path)
         {
             string text = "";
             StreamWriter sw = null;
@@ -96,7 +96,7 @@ namespace UI.Tools
             {
                 using (sw = new StreamWriter(path, false, System.Text.Encoding.Default))
                 {
-                    await sw.WriteLineAsync(text);
+//                    await sw.WriteLineAsync(text);
                 }
 
 
