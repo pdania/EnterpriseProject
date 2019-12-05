@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using ClientSide;
 using UI.Tools;
 using UI.Tools.Managers;
@@ -17,7 +18,9 @@ namespace UI.ViewModels
         #region Fields
 
         private string _email;
+        private string _mailHint;
         private string _password;
+        private Brush _hintColor;
 
         #endregion
 
@@ -26,6 +29,7 @@ namespace UI.ViewModels
         private RelayCommand<object> _signInCommand;
         private RelayCommand<object> _closeCommand;
         private RelayCommand<object> _signUpCommand;
+        
 
         #endregion
 
@@ -37,6 +41,26 @@ namespace UI.ViewModels
             set
             {
                 _email = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string MailHint
+        {
+            get { return _mailHint; }
+            set
+            {
+                _mailHint = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        public Brush HintColor
+        {
+            get { return _hintColor; }
+            set
+            {
+                _hintColor = value;
                 OnPropertyChanged();
             }
         }
@@ -80,8 +104,30 @@ namespace UI.ViewModels
 
         private bool CanExecuteCommand()
         {
+            MailHintChange();
             if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password)) return false;
             return new EmailAddressAttribute().IsValid(Email);
+        }
+
+        private void MailHintChange()
+        {
+            if (string.IsNullOrWhiteSpace(Email))
+            {
+                HintColor = Brushes.Gray;
+                MailHint = "Enter valid mail here";
+                return;
+            }
+            if (!new EmailAddressAttribute().IsValid(Email))
+            {
+                HintColor = Brushes.Red;
+                MailHint = "Mail is incorrect";
+                return;
+            }
+
+            HintColor = Brushes.Green;
+            MailHint = "Mail correct";
+
+
         }
 
         private async void SignInImplementation(object obj)

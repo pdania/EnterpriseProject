@@ -23,7 +23,7 @@
             <Label Grid.Row ="1" Grid.Column="0" Content="Start range:"  VerticalContentAlignment="Bottom"/>
         <Label Grid.Row ="1" Grid.Column="1" Content="End range:"  VerticalContentAlignment="Bottom"/>
         <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding StartRange,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding EndRange,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1" MaxLength="8" Text="{Binding EndRange,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
         <Button Grid.Row="2" Grid.Column="2" Content="Generate" Height="30" Command="{Binding GenerateCommand}" Background="#80ff00" />
         <ListBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Result}" VerticalContentAlignment="Center"/>
         <Button Grid.Row="4" Grid.Column="0" Content="To login" Height="30" Command="{Binding LoginCommand}" Background="Gray" />
