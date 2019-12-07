@@ -101,7 +101,7 @@ namespace UI.Tools
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to Deserialize Data From File {Path}", ex);
+                throw new Exception($"Failed to deserialize Data From File {Path}", ex);
             }
         }
 

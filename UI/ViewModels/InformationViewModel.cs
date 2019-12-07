@@ -75,21 +75,20 @@ namespace UI.ViewModels
         }
         private async void GetRequests()
         {
-            var requests = await Task.Run(() =>
+            await Task.Run(() =>
             {
                 try
                 {
-                    return RestApi.GetAllRequests(StationManager.CurrentUser.Guid);
-                    
+                    var requests = RestApi.GetAllRequests(StationManager.CurrentUser.Guid);
+                    Requests = requests.OrderByDescending(x => x.RequestTime).ToList();
                 }
                 catch(Exception e)
                 {
                     StationManager.Logging.WriteInFile($"{DateTime.Now}-InformationView. An error occured while trying to get all requests.\r\n Reason: " +e.ToString());
                     MessageBox.Show("An error occured while trying to get all requests");
-                    return null;
                 }
             });
-            Requests = requests.OrderByDescending(x => x.RequestTime).ToList();
+            
         }
     }
 }
