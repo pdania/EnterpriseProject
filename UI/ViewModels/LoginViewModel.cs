@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -106,31 +107,54 @@ namespace UI.ViewModels
         {
             MailHintChange();
             if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password)) return false;
-            return new EmailAddressAttribute().IsValid(Email);
+            return IsCorrectEmail();
         }
 
+        private bool IsCorrectEmail()
+        {
+            return new EmailAddressAttribute().IsValid(Email);
+        }
         private void MailHintChange()
         {
             if (string.IsNullOrWhiteSpace(Email))
             {
                 HintColor = Brushes.Gray;
-                MailHint = "Enter valid mail here";
+                MailHint = "Enter valid email up here";
                 return;
             }
-            if (!new EmailAddressAttribute().IsValid(Email))
+            if (!IsCorrectEmail())
             {
                 HintColor = Brushes.Red;
-                MailHint = "Mail is incorrect";
+                MailHint = "Email is incorrect";
                 return;
             }
 
             HintColor = Brushes.Green;
-            MailHint = "Mail correct";
+            MailHint = "Email is correct";
 
 
         }
 
-        private async void SignInImplementation(object obj)
+        public LoginViewModel()
+        {
+            Autologin();
+        }
+
+        private async void Autologin()
+        {
+            if (new FileInfo($@"{Environment.CurrentDirectory}\Autologin.txt").Exists)
+            {
+                var user = await Task.Run(() => StationManager.AutoLogin.Deserialize<User>());
+                Email = user.Email;
+                Enter(user.Password);
+            }
+        }
+        private void SignInImplementation(object obj)
+        {
+            Enter();
+        }
+
+        private async void Enter(string password = null)
         {
             LoaderManeger.Instance.ShowLoader();
 
@@ -149,7 +173,7 @@ namespace UI.ViewModels
                     return false;
                 }
                 var user = (from userIterator in users
-                    where userIterator.Email == Email && userIterator.Password == Password
+                    where userIterator.Email == Email && userIterator.Password == (password ?? Password)
                     select userIterator).FirstOrDefault();
                 if (user == null)
                 {
@@ -167,11 +191,11 @@ namespace UI.ViewModels
             if (result)
             {
                 DashboardViewModel.GetInstance().UpdateFields();
+                await Task.Run(() => StationManager.AutoLogin.Serialize(StationManager.CurrentUser));
                 SetNull();
                 NavigationManager.Instance.Navigate(ViewType.Dashboard);
             }
         }
-
         private void SetNull()
         {
             Email = null;

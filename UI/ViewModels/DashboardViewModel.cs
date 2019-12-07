@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -96,6 +97,15 @@ namespace UI.ViewModels
                 return _loginCommand ?? (_loginCommand =
                            new RelayCommand<object>(o =>
                            {
+                               var file = new FileInfo($@"{Environment.CurrentDirectory}\Autologin.txt");
+                               try
+                               {
+                                   file.Delete();
+                               }
+                               catch (Exception e)
+                               {
+                               }
+
                                SetNull();
                                NavigationManager.Instance.Navigate(ViewType.Login);
                            }));
@@ -129,17 +139,21 @@ namespace UI.ViewModels
             EndRange = null;
             Result = null;
         }
+
         private DashboardViewModel()
-        {}
+        {
+        }
 
         public void UpdateFields()
         {
             User = $"User: {StationManager.CurrentUser.Name} {StationManager.CurrentUser.Surname}";
         }
+
         public static DashboardViewModel GetInstance()
         {
             return Instance;
         }
+
         private async void GenerateImplementation(object obj)
         {
             int start = Int32.Parse(StartRange);
