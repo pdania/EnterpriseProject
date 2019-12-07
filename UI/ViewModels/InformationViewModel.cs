@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -74,20 +75,19 @@ namespace UI.ViewModels
         }
         private async void GetRequests()
         {
-            var requests = await Task.Run(() =>
+            await Task.Run(() =>
             {
                 try
                 {
-                    return RestApi.GetAllRequests(StationManager.CurrentUser.Guid);
-                    
+                    var requests = RestApi.GetAllRequests(StationManager.CurrentUser.Guid);
+                    Requests = requests.OrderByDescending(x => x.RequestTime).ToList();
                 }
                 catch
                 {
                     MessageBox.Show("An error occured while trying to get all requests");
-                    return null;
                 }
             });
-            Requests = requests.OrderByDescending(x => x.RequestTime).ToList();
+            
         }
     }
 }
