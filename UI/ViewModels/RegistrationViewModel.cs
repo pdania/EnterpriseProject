@@ -109,25 +109,30 @@ namespace UI.ViewModels
         {
             MailHintChange();
             if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Surname) || string.IsNullOrWhiteSpace(ConfirmPassword) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Email)) return false;
-            return (ConfirmPassword.Equals(Password)) && new EmailAddressAttribute().IsValid(Email);
+            return (ConfirmPassword.Equals(Password)) && IsCorrectEmail();
+        }
+
+        private bool IsCorrectEmail()
+        {
+            return new EmailAddressAttribute().IsValid(Email);
         }
         private void MailHintChange()
         {
             if (string.IsNullOrWhiteSpace(Email))
             {
                 HintColor = Brushes.Gray;
-                MailHint = "Enter valid mail here";
+                MailHint = "Enter valid email up here";
                 return;
             }
-            if (!new EmailAddressAttribute().IsValid(Email))
+            if (!IsCorrectEmail())
             {
                 HintColor = Brushes.Red;
-                MailHint = "Mail is incorrect";
+                MailHint = "Email is incorrect";
                 return;
             }
 
             HintColor = Brushes.Green;
-            MailHint = "Mail correct";
+            MailHint = "Email is correct";
 
 
         }

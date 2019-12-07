@@ -26,7 +26,7 @@
         <TextBox Grid.Row="2" Grid.Column="1" MaxLength="8" Text="{Binding EndRange,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
         <Button Grid.Row="2" Grid.Column="2" Content="Generate" Height="30" Command="{Binding GenerateCommand}" Background="#80ff00" />
         <ListBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Result}" VerticalContentAlignment="Center"/>
-        <Button Grid.Row="4" Grid.Column="0" Content="To login" Height="30" Command="{Binding LoginCommand}" Background="Gray" />
+        <Button Grid.Row="4" Grid.Column="0" Content="Logout" Height="30" Command="{Binding LoginCommand}" Background="Gray" />
         <Button Grid.Row="4" Grid.Column="1" Content="Exit" Height="30" Command="{Binding ExitCommand}" Background="OrangeRed" />
         <Button Grid.Row="4" Grid.Column="2" Content="History" Height="30" Command="{Binding HistoryCommand}" Background="Aqua" />
     </Grid>

@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 namespace DBModels
 {
     [DataContract(IsReference = true)]
+    [Serializable]
     public class User: IDBModel
     {
         #region Fields
