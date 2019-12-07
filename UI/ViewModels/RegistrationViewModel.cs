@@ -147,9 +147,9 @@ namespace UI.ViewModels
                 {
                     users = RestApi.GetAllUsers();
                 }
-                catch
+                catch(Exception e)
                 {
-                    StationManager.Logging.WriteInFile($"{DateTime.Now}-Registration. Error, server connection failed");
+                    StationManager.Logging.WriteInFile($"{DateTime.Now}-Registration. Error, server connection failed.\r\n Reason: "+e.ToString());
                     MessageBox.Show(
                         "Error, server connection failed");
                     return false;
