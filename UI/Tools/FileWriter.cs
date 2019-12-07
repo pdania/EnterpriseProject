@@ -35,34 +35,13 @@ namespace UI.Tools
             }
             catch (Exception e)
             {
-                //Console.WriteLine(e.Message);
+                // ignored
             }
             finally
             {
                 sw?.Close();
             }
         }
-
-//        public async Task WriteObjectInFile(User user)
-//        {
-//            StreamWriter sw = null;
-//            try
-//            {
-//                XmlSerializer serializer = new XmlSerializer(typeof(User));
-//                using (sw = new StreamWriter(Path, false))
-//                {
-//                    await Task.Run(() => serializer.Serialize(sw, user));
-//                }
-//            }
-//            catch (Exception e)
-//            {
-//                //Console.WriteLine(e.Message);
-//            }
-//            finally
-//            {
-//                sw?.Close();
-//            }
-//        }
         internal void Serialize<TObject>(TObject obj)
         {
             try
@@ -104,71 +83,26 @@ namespace UI.Tools
                 throw new Exception($"Failed to deserialize Data From File {Path}", ex);
             }
         }
-
-//        public async Task<User> ReadObjectFromFile()
-//        {
-//            StreamReader sw = null;
-//            try
-//            {
-//                XmlSerializer serializer = new XmlSerializer(typeof(User));
-//                using (sw = new StreamReader(Path))
-//                {
-//                    return (User) await Task.Run(() => serializer.Deserialize(sw));
-//                }
-//            }
-//            catch (Exception e)
-//            {
-//                //Console.WriteLine(e.Message);
-//            }
-//            finally
-//            {
-//                sw?.Close();
-//            }
-//            return null;
-//        }
-
-//        public string ReadFromFile()
-//        {
-//            string res = null;
-//            StreamReader sr = null;
-//            try
-//            {
-//                using (sr = new StreamReader(Path))
-//                {
-//                    res = sr.ReadToEnd();
-//                }
-//            }
-//            catch (Exception e)
-//            {
-//                //      Console.WriteLine(e.Message);
-//            }
-//            finally
-//            {
-//                sr?.Close();
-//            }
-//
-//            return res;
-//        }
-//
-//        public async Task ClearFile()
-//        {
-//            string text = "";
-//            StreamWriter sw = null;
-//            try
-//            {
-//                using (sw = new StreamWriter(Path, false, System.Text.Encoding.Default))
-//                {
-//                    await sw.WriteLineAsync(text);
-//                }
-//            }
-//            catch (Exception e)
-//            {
-//                //Console.WriteLine(e.Message);
-//            }
-//            finally
-//            {
-//                sw?.Close();
-//            }
-//        }
+        //Method for clearing log file, currently unused
+        public void ClearFile()
+        {
+            string text = "";
+            StreamWriter sw = null;
+            try
+            {
+                using (sw = new StreamWriter(Path, false, System.Text.Encoding.Default))
+                {
+                    sw.WriteLineAsync(text);
+                }
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+            finally
+            {
+                sw?.Close();
+            }
+        }
     }
 }
