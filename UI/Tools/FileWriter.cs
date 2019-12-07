@@ -23,14 +23,14 @@ namespace UI.Tools
             private set { _path = value; }
         }
 
-        public async Task WriteInFile( string text)
+        public void WriteInFile(string text)
         {
             StreamWriter sw = null;
             try
             {
                 using (sw = new StreamWriter(Path, true, System.Text.Encoding.Default))
                 {
-                    await sw.WriteLineAsync(text);
+                    sw.WriteLine(text);
                 }
             }
             catch (Exception e)
@@ -127,48 +127,48 @@ namespace UI.Tools
 //            return null;
 //        }
 
-        public string ReadFromFile()
-        {
-            string res = null;
-            StreamReader sr = null;
-            try
-            {
-                using (sr = new StreamReader(Path))
-                {
-                    res = sr.ReadToEnd();
-                }
-            }
-            catch (Exception e)
-            {
-                //      Console.WriteLine(e.Message);
-            }
-            finally
-            {
-                sr?.Close();
-            }
-
-            return res;
-        }
-
-        public async Task ClearFile()
-        {
-            string text = "";
-            StreamWriter sw = null;
-            try
-            {
-                using (sw = new StreamWriter(Path, false, System.Text.Encoding.Default))
-                {
-                    await sw.WriteLineAsync(text);
-                }
-            }
-            catch (Exception e)
-            {
-                //Console.WriteLine(e.Message);
-            }
-            finally
-            {
-                sw?.Close();
-            }
-        }
+//        public string ReadFromFile()
+//        {
+//            string res = null;
+//            StreamReader sr = null;
+//            try
+//            {
+//                using (sr = new StreamReader(Path))
+//                {
+//                    res = sr.ReadToEnd();
+//                }
+//            }
+//            catch (Exception e)
+//            {
+//                //      Console.WriteLine(e.Message);
+//            }
+//            finally
+//            {
+//                sr?.Close();
+//            }
+//
+//            return res;
+//        }
+//
+//        public async Task ClearFile()
+//        {
+//            string text = "";
+//            StreamWriter sw = null;
+//            try
+//            {
+//                using (sw = new StreamWriter(Path, false, System.Text.Encoding.Default))
+//                {
+//                    await sw.WriteLineAsync(text);
+//                }
+//            }
+//            catch (Exception e)
+//            {
+//                //Console.WriteLine(e.Message);
+//            }
+//            finally
+//            {
+//                sw?.Close();
+//            }
+//        }
     }
 }

@@ -84,6 +84,7 @@ namespace UI.ViewModels
                 }
                 catch
                 {
+                    StationManager.Logging.WriteInFile($"{DateTime.Now}-InformationView. An error occured while trying to get all requests");
                     MessageBox.Show("An error occured while trying to get all requests");
                 }
             });

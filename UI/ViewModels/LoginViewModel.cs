@@ -168,6 +168,7 @@ namespace UI.ViewModels
                 }
                 catch
                 {
+                    StationManager.Logging.WriteInFile($"{DateTime.Now}- Logging. Error, server connection failed");
                     MessageBox.Show(
                         "Error, server connection failed");
                     return false;
