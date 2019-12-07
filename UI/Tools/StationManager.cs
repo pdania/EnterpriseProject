@@ -8,6 +8,6 @@ namespace UI.Tools
         public static User CurrentUser { get; set; }
 
         public static FileWriter AutoLogin { get; } = new FileWriter($@"{Environment.CurrentDirectory}\Autologin.txt");
-        public static FileWriter Logging { get; } = new FileWriter(@"\Log.txt");
+        public static FileWriter Logging { get; } = new FileWriter($@"{Environment.CurrentDirectory}\Log.txt");
     }
 }

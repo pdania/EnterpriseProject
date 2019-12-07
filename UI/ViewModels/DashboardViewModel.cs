@@ -170,6 +170,7 @@ namespace UI.ViewModels
                 }
                 catch
                 {
+                    StationManager.Logging.WriteInFile($"{DateTime.Now}-DashboardView. An error occured while adding new request.");
                     MessageBox.Show("An error occured while adding new request.");
                 }
             });

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -83,6 +84,7 @@ namespace UI.ViewModels
                 }
                 catch
                 {
+                    StationManager.Logging.WriteInFile($"{DateTime.Now}-InformationView. An error occured while trying to get all requests");
                     MessageBox.Show("An error occured while trying to get all requests");
                     return null;
                 }
