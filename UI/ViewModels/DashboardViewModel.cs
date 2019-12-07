@@ -168,9 +168,9 @@ namespace UI.ViewModels
                     RestApi.AddRequest(StationManager.CurrentUser.Guid,
                         new Request(Int32.Parse(StartRange), Int32.Parse(EndRange), StationManager.CurrentUser.Guid));
                 }
-                catch
+                catch(Exception e)
                 {
-                    StationManager.Logging.WriteInFile($"{DateTime.Now}-DashboardView. An error occured while adding new request.");
+                    StationManager.Logging.WriteInFile($"{DateTime.Now}-DashboardView. An error occured while adding new request.\r\n Reason: " +e.ToString());
                     MessageBox.Show("An error occured while adding new request.");
                 }
             });
