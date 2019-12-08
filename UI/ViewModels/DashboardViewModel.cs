@@ -104,8 +104,9 @@ namespace UI.ViewModels
                                }
                                catch (Exception e)
                                {
+                                   StationManager.Logging.WriteInFile(
+                                       $"{DateTime.Now}- Logging. Autologin file delete failed.\r\n Reason: " + e);
                                }
-
                                SetNull();
                                NavigationManager.Instance.Navigate(ViewType.Login);
                            }));
@@ -159,7 +160,7 @@ namespace UI.ViewModels
             int start = Int32.Parse(StartRange);
             int end = Int32.Parse(EndRange);
             var l = Enumerable.Range(start, end - start);
-            LoaderManeger.Instance.ShowLoader();
+            LoaderManager.Instance.ShowLoader();
             var shuffledList = await Task.Run(() => RandomShuffle(l));
             await Task.Run(() =>
             {
@@ -168,13 +169,15 @@ namespace UI.ViewModels
                     RestApi.AddRequest(StationManager.CurrentUser.Guid,
                         new Request(Int32.Parse(StartRange), Int32.Parse(EndRange), StationManager.CurrentUser.Guid));
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    StationManager.Logging.WriteInFile($"{DateTime.Now}-DashboardView. An error occured while adding new request.\r\n Reason: " +e.ToString());
+                    StationManager.Logging.WriteInFile(
+                        $"{DateTime.Now}-DashboardView. An error occured while adding new request.\r\n Reason: " +
+                        e);
                     MessageBox.Show("An error occured while adding new request.");
                 }
             });
-            LoaderManeger.Instance.HideLoader();
+            LoaderManager.Instance.HideLoader();
             Result = shuffledList;
         }
 

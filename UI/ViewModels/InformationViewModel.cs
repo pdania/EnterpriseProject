@@ -62,10 +62,10 @@ namespace UI.ViewModels
 
         public void UpdateFields()
         {
-            LoaderManeger.Instance.ShowLoader();
+            LoaderManager.Instance.ShowLoader();
             User = $"User: {StationManager.CurrentUser.Name} {StationManager.CurrentUser.Surname}";
             GetRequests();
-            LoaderManeger.Instance.HideLoader();
+            LoaderManager.Instance.HideLoader();
         }
         private InformationViewModel()
         {}
@@ -84,7 +84,7 @@ namespace UI.ViewModels
                 }
                 catch(Exception e)
                 {
-                    StationManager.Logging.WriteInFile($"{DateTime.Now}-InformationView. An error occured while trying to get all requests.\r\n Reason: " +e.ToString());
+                    StationManager.Logging.WriteInFile($"{DateTime.Now}-InformationView. An error occured while trying to get all requests.\r\n Reason: " +e);
                     MessageBox.Show("An error occured while trying to get all requests");
                 }
             });

@@ -139,7 +139,7 @@ namespace UI.ViewModels
 
         private async void SignUpImplementation(object obj)
         {
-            LoaderManeger.Instance.ShowLoader();
+            LoaderManager.Instance.ShowLoader();
             var result = await Task.Run(() =>
             {
                 IEnumerable<User> users;
@@ -149,7 +149,7 @@ namespace UI.ViewModels
                 }
                 catch(Exception e)
                 {
-                    StationManager.Logging.WriteInFile($"{DateTime.Now}-Registration. Error, server connection failed.\r\n Reason: "+e.ToString());
+                    StationManager.Logging.WriteInFile($"{DateTime.Now}-Registration. Error, server connection failed.\r\n Reason: "+e);
                     MessageBox.Show(
                         "Error, server connection failed");
                     return false;
@@ -169,7 +169,7 @@ namespace UI.ViewModels
                 MessageBox.Show($"Sign Up successful for user {Name} {Surname}.");
                 return true;
             });
-            LoaderManeger.Instance.HideLoader();
+            LoaderManager.Instance.HideLoader();
             if (result)
             {
                 SetNull();

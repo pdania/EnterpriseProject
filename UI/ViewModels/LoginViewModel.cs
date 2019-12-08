@@ -144,7 +144,18 @@ namespace UI.ViewModels
         {
             if (new FileInfo($@"{Environment.CurrentDirectory}\Autologin.txt").Exists)
             {
-                var user = await Task.Run(() => StationManager.AutoLogin.Deserialize<User>());
+                User user;
+                try
+                {
+                    user = await Task.Run(() => StationManager.AutoLogin.Deserialize<User>());
+                }
+                catch (Exception e)
+                {
+                    StationManager.Logging.WriteInFile($"{DateTime.Now}- Logging. Autologin failed.\r\n Reason: " + e);
+                    MessageBox.Show(
+                        "Autologin failed");
+                    return;
+                }
                 Email = user.Email;
                 Enter(user.Password);
             }
@@ -156,7 +167,7 @@ namespace UI.ViewModels
 
         private async void Enter(string password = null)
         {
-            LoaderManeger.Instance.ShowLoader();
+            LoaderManager.Instance.ShowLoader();
 
 
             var result = await Task.Run(() =>
@@ -168,7 +179,7 @@ namespace UI.ViewModels
                 }
                 catch(Exception e)
                 {
-                    StationManager.Logging.WriteInFile($"{DateTime.Now}- Logging. Error, server connection failed.\r\n Reason: " +e.ToString());
+                    StationManager.Logging.WriteInFile($"{DateTime.Now}- Logging. Error, server connection failed.\r\n Reason: " +e);
                     MessageBox.Show(
                         "Error, server connection failed");
                     return false;
@@ -188,7 +199,7 @@ namespace UI.ViewModels
                 MessageBox.Show($"Sign In successful for user {user.Name} {user.Surname}.");
                 return true;
             });
-            LoaderManeger.Instance.HideLoader();
+            LoaderManager.Instance.HideLoader();
             if (result)
             {
                 DashboardViewModel.GetInstance().UpdateFields();

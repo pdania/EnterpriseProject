@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using DBModels;
 
 namespace UI.Tools
 {
@@ -30,10 +27,10 @@ namespace UI.Tools
             {
                 using (sw = new StreamWriter(Path, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(text);
+                    sw.WriteLine(text+"\n\n");
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }
@@ -95,7 +92,7 @@ namespace UI.Tools
                     sw.WriteLineAsync(text);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }

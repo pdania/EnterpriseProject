@@ -36,7 +36,7 @@ namespace UI.ViewModels
 
         internal MainWindowViewModel()
         {
-            LoaderManeger.Instance.Initialize(this);
+            LoaderManager.Instance.Initialize(this);
         }
     }
 }
